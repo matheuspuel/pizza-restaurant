@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "pizza-restaurant",
+    "name": "Pizza Restaurant",
     "slug": "pizza-restaurant",
     "version": "1.0.0",
+    "owner": "matheuspuel",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
