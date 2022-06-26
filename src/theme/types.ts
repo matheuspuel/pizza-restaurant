@@ -1,52 +1,10 @@
-export interface Theme extends ThemeBase {
+export interface Theme {
   color: ThemeColors
-}
-
-export interface ThemeBase {
-  size: {
-    xs: Size
-    sm: Size
-    md: Size
-    lg: Size
-    xl: Size
-  }
-  spacing: {
-    px: Size
-    $1: Size
-    $2: Size
-    $3: Size
-    $4: Size
-    $5: Size
-    $6: Size
-    $8: Size
-    $12: Size
-    $16: Size
-  }
-  fontSize: {
-    xxs: Size
-    xs: Size
-    sm: Size
-    md: Size
-    lg: Size
-    xl: Size
-    xxl: Size
-    xxxl: Size
-  }
-  fontWeight: {
-    hair: FontWeight
-    thin: FontWeight
-    light: FontWeight
-    normal: FontWeight
-    medium: FontWeight
-    semibold: FontWeight
-    bold: FontWeight
-    extrabold: FontWeight
-    black: FontWeight
-  }
 }
 
 export type ThemeColors = ThemeColorsBase & {
   background: Color
+  background_card: Color
 
   text_primary: Color
   text_secondary: Color
@@ -127,7 +85,3 @@ export type ThemeColorsBase = {
 }
 
 type Color = string
-
-type Size = string
-
-type FontWeight = number

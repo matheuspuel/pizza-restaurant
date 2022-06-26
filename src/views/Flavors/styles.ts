@@ -4,23 +4,23 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.color.background};
-  padding: ${({ theme }) => theme.spacing.$2};
+  padding: 8px;
 `
 
 export const Title = styled.Text``
 
 export const ItemButton = styled.TouchableOpacity`
-  margin: ${({ theme }) => theme.spacing.$2};
-  padding: ${({ theme }) => theme.spacing.$2};
-  border-width: ${({ theme }) => theme.spacing.px};
-  border-radius: ${({ theme }) => theme.spacing.$2};
+  margin: 8px;
+  padding: 8px;
+  border-width: 1px;
+  border-radius: 8px;
   background-color: ${({ theme }) => theme.color.primary_500};
 `
 
 export const ItemTitle = styled.Text`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  margin-right: ${({ theme }) => theme.spacing.$2};
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 8px;
 `
 
 export const ItemDescription = styled.Text``
@@ -29,20 +29,20 @@ export const VegetarianIcon = styled(MaterialCommunityIcons).attrs({
   name: 'leaf',
 })`
   color: ${({ theme }) => theme.color.green_700};
-  font-size: ${({ theme }) => theme.size.md};
-  margin-right: ${({ theme }) => theme.spacing.$2};
+  font-size: 24px;
+  margin-right: 8px;
 `
 
 export const SpiceIcon = styled(MaterialCommunityIcons).attrs({
   name: 'fire',
 })`
   color: ${({ theme }) => theme.color.red_700};
-  font-size: ${({ theme }) => theme.size.md};
+  font-size: 24px;
 `
 
 export const Price = styled.Text`
   flex: 1;
   text-align: right;
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-size: 16px;
+  font-weight: 500;
 `

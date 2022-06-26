@@ -9,10 +9,10 @@ export const Container = styled.View`
 
 export const RestaurantName = styled.Text`
   align-self: center;
-  font-size: ${({ theme }) => theme.fontSize.xxxl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: 24px;
+  font-weight: 700;
   color: ${({ theme }) => theme.color.red_900};
-  padding: ${({ theme }) => theme.spacing.$2};
+  padding: 8px;
 `
 
 export const ImageContainer = styled.View`
@@ -27,12 +27,12 @@ export const Image = styled.Image`
 export const OrderButton = styled.TouchableOpacity`
   align-self: stretch;
   align-items: center;
-  padding: ${({ theme }) => theme.spacing.$4};
+  padding: 16px;
   background-color: ${({ theme }) => theme.color.red_500};
 `
 
 export const OrderButtonText = styled.Text`
   color: ${({ theme }) => theme.color.text_contrast};
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: 18px;
+  font-weight: 700;
 `

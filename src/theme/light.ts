@@ -1,12 +1,12 @@
-import { themeBase, themeColorBase } from './base'
+import { themeColorsBase } from './base'
 import { Theme } from './types'
 
 export const lightTheme: Theme = {
-  ...themeBase,
   color: {
-    ...themeColorBase,
+    ...themeColorsBase,
 
     background: '#efefef',
+    background_card: '#ffffff',
 
     text_primary: '#0f0f0f',
     text_secondary: '#7f7f7f',

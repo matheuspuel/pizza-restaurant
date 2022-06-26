@@ -23,7 +23,7 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
           resizeMode="cover"
         />
       </ImageContainer>
-      <OrderButton onPress={() => navigation.navigate('Flavors')}>
+      <OrderButton onPress={() => navigation.navigate('Sizes')}>
         <OrderButtonText>Fazer Pedido</OrderButtonText>
       </OrderButton>
     </Container>

@@ -1,49 +1,6 @@
-import { ThemeBase, ThemeColorsBase } from './types'
+import { ThemeColorsBase } from './types'
 
-export const themeBase: ThemeBase = {
-  size: {
-    xs: '16px',
-    sm: '20px',
-    md: '24px',
-    lg: '28px',
-    xl: '32px',
-  },
-  spacing: {
-    px: '1px',
-    $1: '4px',
-    $2: '8px',
-    $3: '12px',
-    $4: '16px',
-    $5: '20px',
-    $6: '24px',
-    $8: '32px',
-    $12: '48px',
-    $16: '64px',
-  },
-  fontSize: {
-    xxs: '8px',
-    xs: '10px',
-    sm: '12px',
-    md: '14px',
-    lg: '16px',
-    xl: '18px',
-    xxl: '20px',
-    xxxl: '24px',
-  },
-  fontWeight: {
-    hair: 100,
-    thin: 200,
-    light: 300,
-    normal: 400,
-    medium: 500,
-    semibold: 600,
-    bold: 700,
-    extrabold: 800,
-    black: 900,
-  },
-}
-
-export const themeColorBase: ThemeColorsBase = {
+export const themeColorsBase: ThemeColorsBase = {
   gray_050: '#fafafa',
   gray_100: '#f4f4f5',
   gray_200: '#e4e4e7',

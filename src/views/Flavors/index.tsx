@@ -13,20 +13,25 @@ import {
 } from './styles'
 import { rangeArray } from 'src/utils/array'
 import { toCurrency } from 'src/utils/number'
+import { PizzaSizeId } from 'src/domain/size'
+import { RootStackScreenProps } from 'src/routes/RootStack'
 
-export const Flavors = () => {
+export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
+  const { sizeId } = props.route.params
+
   return (
     <Container>
       <Title>Flavors</Title>
       {flavors.map(f => (
-        <FlavorItem key={f.id} data={f} />
+        <FlavorItem key={f.id} data={f} sizeId={sizeId} />
       ))}
     </Container>
   )
 }
 
-const FlavorItem = (props: { data: Flavor }) => {
-  const { name, description, price, vegetarian, spiceLevel } = props.data
+const FlavorItem = (props: { data: Flavor; sizeId: PizzaSizeId }) => {
+  const { name, description, prices, vegetarian, spiceLevel } = props.data
+  const price = prices[props.sizeId]
 
   return (
     <ItemButton>
