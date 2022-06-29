@@ -8,6 +8,7 @@ export const Scroll = styled.ScrollView`
 export const Container = styled.View`
   flex: 1;
   padding: 8px;
+  justify-content: space-evenly;
 `
 
 export const Title = styled.Text`

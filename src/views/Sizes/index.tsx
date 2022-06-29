@@ -23,7 +23,7 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
   const sizesRow2 = sizesArray.slice(3, 5)
 
   return (
-    <Scroll>
+    <Scroll contentContainerStyle={{ flex: 1 }}>
       <Container>
         <Title>Choose the Size</Title>
         <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
@@ -59,7 +59,7 @@ const SizeItem = (props: { data: PizzaSizeInfo; onPress: () => void }) => {
   return (
     <ItemButton onPress={props.onPress}>
       <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <PizzaCircle centimeters={centimeters} />
+        <PizzaCircle centimeters={centimeters} slices={slices} />
         <ItemTitle>{name}</ItemTitle>
         <ItemSlices>{slices} slices</ItemSlices>
         <ItemCentimeters>{centimeters}cm</ItemCentimeters>
