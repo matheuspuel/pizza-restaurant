@@ -35,8 +35,9 @@ export const PizzaCircle = (props: { centimeters: number; slices: number }) => {
       />
 
       {/* Pepperoni */}
-      {pepperoniPositions.map(({ x, y }) => (
+      {pepperoniPositions.map(({ x, y }, i) => (
         <Circle
+          key={i}
           translateX={(radius - borderSize) * x}
           translateY={(radius - borderSize) * y}
           cx={size / 2}
@@ -48,8 +49,9 @@ export const PizzaCircle = (props: { centimeters: number; slices: number }) => {
 
       {/* Cuts */}
       {slices > 1 &&
-        cutRotations.map(rotation => (
+        cutRotations.map((rotation, i) => (
           <Line
+            key={i}
             rotation={rotation}
             originX={size / 2}
             originY={size / 2}

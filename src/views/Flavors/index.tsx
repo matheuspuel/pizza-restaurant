@@ -1,8 +1,8 @@
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { flavors } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import {
-  Container,
+  Header,
   ItemButton,
   ItemDescription,
   ItemTitle,
@@ -20,12 +20,16 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
   const { sizeId } = props.route.params
 
   return (
-    <Container>
-      <Title>Flavors</Title>
-      {flavors.map(f => (
-        <FlavorItem key={f.id} data={f} sizeId={sizeId} />
-      ))}
-    </Container>
+    <>
+      <Header>
+        <Title>Flavors</Title>
+      </Header>
+      <ScrollView contentContainerStyle={{ padding: 8 }}>
+        {flavors.map(f => (
+          <FlavorItem key={f.id} data={f} sizeId={sizeId} />
+        ))}
+      </ScrollView>
+    </>
   )
 }
 

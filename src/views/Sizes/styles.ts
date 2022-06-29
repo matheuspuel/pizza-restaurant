@@ -1,13 +1,9 @@
 import styled from 'styled-components/native'
 
-export const Scroll = styled.ScrollView`
-  flex: 1;
-  background-color: ${({ theme }) => theme.color.background};
-`
-
 export const Container = styled.View`
   flex: 1;
   padding: 8px;
+  background-color: ${({ theme }) => theme.color.background};
   justify-content: space-evenly;
 `
 
@@ -34,6 +30,8 @@ export const ItemSlices = styled.Text``
 export const ItemCentimeters = styled.Text``
 
 export const ItemPrice = styled.Text``
+
+export const ItemFlavors = styled.Text``
 
 export const ItemPriceValue = styled.Text`
   font-size: 14px;

@@ -4,11 +4,41 @@ import { PizzaSizeId, PizzaSizeInfo } from './domain/size'
 export const restaurantName = 'Red Hot Pizza'
 
 export const sizes: Record<PizzaSizeId, PizzaSizeInfo> = {
-  sm: { id: 'sm', name: 'Small', slices: 6, centimeters: 30 },
-  md: { id: 'md', name: 'Medium', slices: 8, centimeters: 40 },
-  lg: { id: 'lg', name: 'Large', slices: 10, centimeters: 50 },
-  xl: { id: 'xl', name: 'Extra-Large', slices: 12, centimeters: 60 },
-  xxl: { id: 'xxl', name: 'Giant', slices: 16, centimeters: 70 },
+  sm: {
+    id: 'sm',
+    name: 'Small',
+    slices: 6,
+    centimeters: 30,
+    maxFlavors: 1,
+  },
+  md: {
+    id: 'md',
+    name: 'Medium',
+    slices: 8,
+    centimeters: 40,
+    maxFlavors: 2,
+  },
+  lg: {
+    id: 'lg',
+    name: 'Large',
+    slices: 10,
+    centimeters: 50,
+    maxFlavors: 3,
+  },
+  xl: {
+    id: 'xl',
+    name: 'Extra-Large',
+    slices: 12,
+    centimeters: 60,
+    maxFlavors: 4,
+  },
+  xxl: {
+    id: 'xxl',
+    name: 'Giant',
+    slices: 16,
+    centimeters: 70,
+    maxFlavors: 4,
+  },
 }
 
 export const flavors: Flavor[] = [
@@ -63,5 +93,17 @@ export const flavors: Flavor[] = [
     description: 'Calabresa, tomate, pimentão, pimenta',
     prices: { sm: 34.9, md: 49.9, lg: 64.9, xl: 79.9, xxl: 94.9 },
     spiceLevel: 3,
+  },
+  {
+    id: 9,
+    name: 'Chocolate',
+    description: 'Chocolate',
+    prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+  },
+  {
+    id: 10,
+    name: 'Banana',
+    description: 'Banana, condensed milk',
+    prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
   },
 ]

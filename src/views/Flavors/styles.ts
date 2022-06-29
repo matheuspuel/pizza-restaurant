@@ -1,13 +1,13 @@
 import styled from 'styled-components/native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.color.background};
+export const Header = styled.View`
   padding: 8px;
 `
 
-export const Title = styled.Text``
+export const Title = styled.Text`
+  text-align: center;
+`
 
 export const ItemButton = styled.TouchableOpacity`
   margin: 8px;
