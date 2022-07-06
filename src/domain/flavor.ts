@@ -1,6 +1,8 @@
 import {
+  combineSort,
   contramapSort,
   reverseSort,
+  sortBoolean,
   sortNumber,
   sortString,
 } from 'src/utils/sort'
@@ -26,5 +28,15 @@ export const sortByPopularity = contramapSort((a: Flavor) => a.popularity)(
   reverseSort(sortNumber)
 )
 
+export const sortByRecommended = combineSort(
+  contramapSort((a: Flavor) => a.tags?.recommended ?? false)(
+    reverseSort(sortBoolean)
+  ),
+  sortByPopularity
+)
+
 export const sortByPrice = (sizeId: PizzaSizeId) =>
-  contramapSort((a: Flavor) => a.prices[sizeId])(sortNumber)
+  combineSort(
+    contramapSort((a: Flavor) => a.prices[sizeId])(sortNumber),
+    sortByRecommended
+  )

@@ -5,6 +5,7 @@ import {
   sortByName,
   sortByPopularity,
   sortByPrice,
+  sortByRecommended,
 } from 'src/domain/flavor'
 import {
   Header,
@@ -29,14 +30,14 @@ import { useState } from 'react'
 import { absurd } from 'src/utils/function'
 import { sort } from 'src/utils/sort'
 
-const sortByOptions = ['Name', 'Price', 'Popularity'] as const
+const sortByOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
 
 const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
   const { sizeId } = props.route.params
   const { showActionSheetWithOptions } = useActionSheet()
 
   const [sortBy, setSortBy] =
-    useState<typeof sortByOptions[number]>('Popularity')
+    useState<typeof sortByOptions[number]>('Recommended')
 
   const showSortBy = () =>
     showActionSheetWithOptions(
@@ -59,6 +60,8 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
       ? sortByPrice(sizeId)
       : sortBy === 'Popularity'
       ? sortByPopularity
+      : sortBy === 'Recommended'
+      ? sortByRecommended
       : absurd(sortBy)
   )
 
