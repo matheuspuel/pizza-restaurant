@@ -13,10 +13,12 @@ export type Flavor = {
   prices: Record<PizzaSizeId, number>
   popularity: number
   spiceLevel?: SpiceLevel
-  vegetarian?: boolean
+  tags?: Partial<Record<FlavorTag, boolean>>
 }
 
 export type SpiceLevel = 0 | 1 | 2 | 3
+
+export type FlavorTag = 'vegetarian' | 'sweet' | 'recommended'
 
 export const sortByName = contramapSort((a: Flavor) => a.name)(sortString)
 

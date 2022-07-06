@@ -9,12 +9,13 @@ export const Title = styled.Text`
   text-align: center;
 `
 
-export const ItemButton = styled.TouchableOpacity`
+export const ItemButton = styled.TouchableOpacity<{ sweet?: boolean }>`
   margin: 8px;
   padding: 8px;
   border-width: 1px;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.color.primary_500};
+  background-color: ${({ theme, sweet }) =>
+    sweet ? '#bc9c87' : theme.color.yellow_100};
 `
 
 export const ItemTitle = styled.Text`
@@ -29,6 +30,14 @@ export const VegetarianIcon = styled(MaterialCommunityIcons).attrs({
   name: 'leaf',
 })`
   color: ${({ theme }) => theme.color.green_700};
+  font-size: 24px;
+  margin-right: 8px;
+`
+
+export const RecommendedIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'star',
+})`
+  color: ${({ theme }) => theme.color.yellow_600};
   font-size: 24px;
   margin-right: 8px;
 `

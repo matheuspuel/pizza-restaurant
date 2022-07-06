@@ -55,8 +55,8 @@ export const flavors: Flavor[] = [
     name: 'Palmito',
     description: 'Palmito, tomate',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
-    vegetarian: true,
     popularity: 20,
+    tags: { vegetarian: true },
   },
   {
     id: 3,
@@ -64,6 +64,7 @@ export const flavors: Flavor[] = [
     description: 'Bacon',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     popularity: 80,
+    tags: { recommended: true },
   },
   {
     id: 4,
@@ -101,6 +102,7 @@ export const flavors: Flavor[] = [
     prices: { sm: 34.9, md: 49.9, lg: 64.9, xl: 79.9, xxl: 94.9 },
     spiceLevel: 3,
     popularity: 40,
+    tags: { recommended: true },
   },
   {
     id: 9,
@@ -108,6 +110,7 @@ export const flavors: Flavor[] = [
     description: 'Chocolate',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     popularity: 80,
+    tags: { sweet: true },
   },
   {
     id: 10,
@@ -115,5 +118,6 @@ export const flavors: Flavor[] = [
     description: 'Banana, condensed milk',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     popularity: 60,
+    tags: { sweet: true, recommended: true },
   },
 ]

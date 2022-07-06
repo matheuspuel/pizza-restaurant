@@ -12,6 +12,7 @@ import {
   ItemDescription,
   ItemTitle,
   Price,
+  RecommendedIcon,
   SpiceIcon,
   Title,
   VegetarianIcon,
@@ -79,14 +80,15 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
 export const Flavors = connectActionSheet(Flavors0)
 
 const FlavorItem = (props: { data: Flavor; sizeId: PizzaSizeId }) => {
-  const { name, description, prices, vegetarian, spiceLevel } = props.data
+  const { name, description, prices, tags, spiceLevel } = props.data
   const price = prices[props.sizeId]
 
   return (
-    <ItemButton>
+    <ItemButton sweet={tags?.sweet}>
       <View style={{ flexDirection: 'row' }}>
         <ItemTitle>{name}</ItemTitle>
-        {vegetarian && <VegetarianIcon />}
+        {tags?.recommended && <RecommendedIcon />}
+        {tags?.vegetarian && <VegetarianIcon />}
         {rangeArray(spiceLevel).map(i => (
           <SpiceIcon key={i} />
         ))}
