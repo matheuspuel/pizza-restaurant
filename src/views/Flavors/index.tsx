@@ -30,30 +30,46 @@ import { useState } from 'react'
 import { absurd } from 'src/utils/function'
 import { sort } from 'src/utils/sort'
 
-const sortByOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
+const sortOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
+const filterOptions = ['All', 'Salty', 'Sweet', 'Vegetarian'] as const
 
 const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
   const { sizeId } = props.route.params
   const { showActionSheetWithOptions } = useActionSheet()
 
   const [sortBy, setSortBy] =
-    useState<typeof sortByOptions[number]>('Recommended')
+    useState<typeof sortOptions[number]>('Recommended')
+
+  const [filterBy, setFilterBy] = useState<typeof filterOptions[number]>('All')
 
   const showSortBy = () =>
     showActionSheetWithOptions(
       {
-        options: [...sortByOptions, 'Cancel'],
+        options: [...sortOptions, 'Cancel'],
         title: 'Sort by',
-        destructiveButtonIndex: sortByOptions.length,
+        destructiveButtonIndex: sortOptions.length,
       },
       i => {
-        const type = sortByOptions[i ?? -1]
+        const type = sortOptions[i ?? -1]
         if (type !== undefined) setSortBy(type)
       }
     )
 
+  const filteredFlavors =
+    filterBy === 'All'
+      ? flavors
+      : flavors.filter(f =>
+          filterBy === 'Salty'
+            ? !f.tags?.sweet
+            : filterBy === 'Sweet'
+            ? f.tags?.sweet
+            : filterBy === 'Vegetarian'
+            ? f.tags?.vegetarian
+            : absurd(filterBy)
+        )
+
   const sortedFlavors = sort(
-    flavors,
+    filteredFlavors,
     sortBy === 'Name'
       ? sortByName
       : sortBy === 'Price'
@@ -70,6 +86,12 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
       <Header>
         <Title>Flavors</Title>
         <Button title="Sort by" onPress={showSortBy} />
+        <Title>Filters</Title>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+          {filterOptions.map(op => (
+            <Button key={op} title={op} onPress={() => setFilterBy(op)} />
+          ))}
+        </View>
       </Header>
       <ScrollView contentContainerStyle={{ padding: 8 }}>
         {sortedFlavors.map(f => (
