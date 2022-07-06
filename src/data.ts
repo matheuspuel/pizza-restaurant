@@ -48,6 +48,7 @@ export const flavors: Flavor[] = [
     description: 'Calabresa, cebola',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     spiceLevel: 1,
+    popularity: 100,
   },
   {
     id: 2,
@@ -55,24 +56,28 @@ export const flavors: Flavor[] = [
     description: 'Palmito, tomate',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     vegetarian: true,
+    popularity: 20,
   },
   {
     id: 3,
     name: 'Bacon',
     description: 'Bacon',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+    popularity: 80,
   },
   {
     id: 4,
     name: 'Portuguesa',
     description: 'Presunto, ovo, pimentão',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+    popularity: 30,
   },
   {
     id: 5,
     name: 'Frango',
     description: 'Frango desfiado, catupiry',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+    popularity: 40,
   },
   {
     id: 6,
@@ -80,12 +85,14 @@ export const flavors: Flavor[] = [
     description: 'Pepperoni',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     spiceLevel: 2,
+    popularity: 50,
   },
   {
     id: 7,
     name: 'Quatro Queijos',
     description: 'Mussarela, parmesão, provolone, gorgonzola',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+    popularity: 70,
   },
   {
     id: 8,
@@ -93,17 +100,20 @@ export const flavors: Flavor[] = [
     description: 'Calabresa, tomate, pimentão, pimenta',
     prices: { sm: 34.9, md: 49.9, lg: 64.9, xl: 79.9, xxl: 94.9 },
     spiceLevel: 3,
+    popularity: 40,
   },
   {
     id: 9,
     name: 'Chocolate',
     description: 'Chocolate',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+    popularity: 80,
   },
   {
     id: 10,
     name: 'Banana',
     description: 'Banana, condensed milk',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
+    popularity: 60,
   },
 ]
