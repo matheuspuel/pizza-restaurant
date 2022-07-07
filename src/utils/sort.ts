@@ -25,8 +25,7 @@ export const reverseSort =
  * Derive a new sort function from a map function and a simpler sort function
  */
 export const contramapSort =
-  <A, B>(getValue: (a: A) => B) =>
-  (sortFn: SortFn<B>): SortFn<A> =>
+  <A, B>(getValue: (a: A) => B, sortFn: SortFn<B>): SortFn<A> =>
   (a, b) =>
     sortFn(getValue(a), getValue(b))
 

@@ -12,7 +12,9 @@ import {
   ItemButton,
   ItemDescription,
   ItemTitle,
-  Price,
+  OldPriceText,
+  OnSaleIcon,
+  PriceText,
   RecommendedIcon,
   SpiceIcon,
   Title,
@@ -77,7 +79,7 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
       : sortBy === 'Popularity'
       ? sortByPopularity
       : sortBy === 'Recommended'
-      ? sortByRecommended
+      ? sortByRecommended(sizeId)
       : absurd(sortBy)
   )
 
@@ -105,8 +107,9 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
 export const Flavors = connectActionSheet(Flavors0)
 
 const FlavorItem = (props: { data: Flavor; sizeId: PizzaSizeId }) => {
-  const { name, description, prices, tags, spiceLevel } = props.data
+  const { name, description, prices, tags, spiceLevel, oldPrices } = props.data
   const price = prices[props.sizeId]
+  const oldPrice = oldPrices?.[props.sizeId]
 
   return (
     <ItemButton sweet={tags?.sweet}>
@@ -117,9 +120,25 @@ const FlavorItem = (props: { data: Flavor; sizeId: PizzaSizeId }) => {
         {rangeArray(spiceLevel).map(i => (
           <SpiceIcon key={i} />
         ))}
-        <Price>{toCurrency(price)}</Price>
+        <Price price={price} oldPrice={oldPrice} />
       </View>
       <ItemDescription>{description}</ItemDescription>
     </ItemButton>
+  )
+}
+
+const Price = (props: { price: number; oldPrice?: number }) => {
+  const { price, oldPrice } = props
+
+  return (
+    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+      {oldPrice === undefined ? null : (
+        <>
+          <OnSaleIcon />
+          <OldPriceText>{toCurrency(oldPrice)}</OldPriceText>
+        </>
+      )}
+      <PriceText>{toCurrency(price)}</PriceText>
+    </View>
   )
 }

@@ -49,9 +49,20 @@ export const SpiceIcon = styled(MaterialCommunityIcons).attrs({
   font-size: 24px;
 `
 
-export const Price = styled.Text`
-  flex: 1;
-  text-align: right;
+export const OnSaleIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'sale',
+})`
+  color: ${({ theme }) => theme.color.red_700};
+  font-size: 24px;
+  margin-right: 8px;
+`
+
+export const PriceText = styled.Text`
   font-size: 16px;
   font-weight: 500;
+`
+
+export const OldPriceText = styled(PriceText)`
+  text-decoration-line: line-through;
+  margin-right: 8px;
 `
