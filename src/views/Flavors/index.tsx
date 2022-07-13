@@ -1,4 +1,10 @@
+import {
+  connectActionSheet,
+  useActionSheet,
+} from '@expo/react-native-action-sheet'
+import { useState } from 'react'
 import { Button, ScrollView, View } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
 import { flavors } from 'src/data'
 import {
   Flavor,
@@ -7,6 +13,13 @@ import {
   sortByPrice,
   sortByRecommended,
 } from 'src/domain/flavor'
+import { PizzaSizeId } from 'src/domain/size'
+import { RootStackScreenProps } from 'src/routes/RootStack'
+import { rangeArray } from 'src/utils/array'
+import { absurd } from 'src/utils/function'
+import { toCurrency } from 'src/utils/number'
+import { sort } from 'src/utils/sort'
+import { hasEveryWord } from 'src/utils/string'
 import {
   Header,
   ItemButton,
@@ -20,17 +33,6 @@ import {
   Title,
   VegetarianIcon,
 } from './styles'
-import { rangeArray } from 'src/utils/array'
-import { toCurrency } from 'src/utils/number'
-import { PizzaSizeId } from 'src/domain/size'
-import { RootStackScreenProps } from 'src/routes/RootStack'
-import {
-  connectActionSheet,
-  useActionSheet,
-} from '@expo/react-native-action-sheet'
-import { useState } from 'react'
-import { absurd } from 'src/utils/function'
-import { sort } from 'src/utils/sort'
 
 const sortOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
 const filterOptions = ['All', 'Salty', 'Sweet', 'Vegetarian'] as const
@@ -43,6 +45,8 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
     useState<typeof sortOptions[number]>('Recommended')
 
   const [filterBy, setFilterBy] = useState<typeof filterOptions[number]>('All')
+
+  const [search, setSearch] = useState('')
 
   const showSortBy = () =>
     showActionSheetWithOptions(
@@ -70,8 +74,12 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
             : absurd(filterBy)
         )
 
+  const searchedFlavors = filteredFlavors.filter(f =>
+    hasEveryWord([f.name, f.description], search)
+  )
+
   const sortedFlavors = sort(
-    filteredFlavors,
+    searchedFlavors,
     sortBy === 'Name'
       ? sortByName
       : sortBy === 'Price'
@@ -87,6 +95,11 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
     <>
       <Header>
         <Title>Flavors</Title>
+        <TextInput
+          style={{ padding: 8, margin: 8, backgroundColor: '#ffffff' }}
+          value={search}
+          onChangeText={setSearch}
+        />
         <Button title="Sort by" onPress={showSortBy} />
         <Title>Filters</Title>
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
