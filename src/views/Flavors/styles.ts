@@ -1,5 +1,5 @@
-import styled from 'styled-components/native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import styled from 'styled-components/native'
 
 export const Header = styled.View`
   padding: 8px;
@@ -10,7 +10,7 @@ export const Title = styled.Text`
 `
 
 export const ItemButton = styled.TouchableOpacity<{ sweet?: boolean }>`
-  margin: 8px;
+  margin: 4px;
   padding: 8px;
   border-width: 1px;
   border-radius: 8px;
@@ -24,7 +24,9 @@ export const ItemTitle = styled.Text`
   margin-right: 8px;
 `
 
-export const ItemDescription = styled.Text``
+export const ItemDescription = styled.Text`
+  flex: 1;
+`
 
 export const VegetarianIcon = styled(MaterialCommunityIcons).attrs({
   name: 'leaf',
@@ -47,6 +49,7 @@ export const SpiceIcon = styled(MaterialCommunityIcons).attrs({
 })`
   color: ${({ theme }) => theme.color.red_700};
   font-size: 24px;
+  margin-left: -12px;
 `
 
 export const OnSaleIcon = styled(MaterialCommunityIcons).attrs({
@@ -55,6 +58,15 @@ export const OnSaleIcon = styled(MaterialCommunityIcons).attrs({
   color: ${({ theme }) => theme.color.red_700};
   font-size: 24px;
   margin-right: 8px;
+`
+
+export const CheckedIcon = styled(MaterialCommunityIcons).attrs({
+  name: 'check-bold',
+})`
+  color: ${({ theme }) => theme.color.green_700};
+  font-size: 24px;
+  margin-left: 4px;
+  margin-right: 6px;
 `
 
 export const PriceText = styled.Text`

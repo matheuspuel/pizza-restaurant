@@ -3,9 +3,9 @@ import {
   useActionSheet,
 } from '@expo/react-native-action-sheet'
 import { useState } from 'react'
-import { Button, ScrollView, View } from 'react-native'
+import { Button, ScrollView, Text, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import { flavors } from 'src/data'
+import { flavors, sizes } from 'src/data'
 import {
   Flavor,
   sortByName,
@@ -21,6 +21,7 @@ import { toCurrency } from 'src/utils/number'
 import { sort } from 'src/utils/sort'
 import { hasEveryWord } from 'src/utils/string'
 import {
+  CheckedIcon,
   Header,
   ItemButton,
   ItemDescription,
@@ -43,10 +44,11 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
 
   const [sortBy, setSortBy] =
     useState<typeof sortOptions[number]>('Recommended')
-
   const [filterBy, setFilterBy] = useState<typeof filterOptions[number]>('All')
-
   const [search, setSearch] = useState('')
+  const [selectedIds, setSelectedIds] = useState<Array<Flavor['id']>>([])
+
+  const maxFlavors = sizes[sizeId].maxFlavors
 
   const showSortBy = () =>
     showActionSheetWithOptions(
@@ -61,10 +63,12 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
       }
     )
 
+  const flavorsArray = Object.values(flavors)
+
   const filteredFlavors =
     filterBy === 'All'
-      ? flavors
-      : flavors.filter(f =>
+      ? flavorsArray
+      : flavorsArray.filter(f =>
           filterBy === 'Salty'
             ? !f.tags?.sweet
             : filterBy === 'Sweet'
@@ -108,34 +112,80 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
           ))}
         </View>
       </Header>
-      <ScrollView contentContainerStyle={{ padding: 8 }}>
+      <ScrollView contentContainerStyle={{ padding: 4 }}>
         {sortedFlavors.map(f => (
-          <FlavorItem key={f.id} data={f} sizeId={sizeId} />
+          <FlavorItem
+            key={f.id}
+            data={f}
+            sizeId={sizeId}
+            selected={selectedIds.includes(f.id)}
+            onPress={() =>
+              setSelectedIds(prev =>
+                prev.includes(f.id)
+                  ? prev.filter(id => id !== f.id)
+                  : selectedIds.length < maxFlavors
+                  ? [...prev, f.id]
+                  : prev
+              )
+            }
+          />
         ))}
       </ScrollView>
+      <View style={{ flexDirection: 'row', alignItems: 'center', padding: 4 }}>
+        <Text style={{ fontWeight: '700', fontSize: 18, padding: 4 }}>
+          {selectedIds.length} / {maxFlavors}
+        </Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            padding: 4,
+          }}
+        >
+          {selectedIds.map((id, i) => (
+            <Text key={i} style={{ paddingLeft: 4 }}>
+              • {flavors[id]?.name ?? '-'}
+            </Text>
+          ))}
+        </View>
+        <View style={{ padding: 4 }}>
+          <Button title="Next" onPress={() => console.log('ok')} />
+        </View>
+      </View>
     </>
   )
 }
 
 export const Flavors = connectActionSheet(Flavors0)
 
-const FlavorItem = (props: { data: Flavor; sizeId: PizzaSizeId }) => {
+const FlavorItem = (props: {
+  data: Flavor
+  sizeId: PizzaSizeId
+  selected?: boolean
+  onPress: () => void
+}) => {
   const { name, description, prices, tags, spiceLevel, oldPrices } = props.data
   const price = prices[props.sizeId]
   const oldPrice = oldPrices?.[props.sizeId]
 
   return (
-    <ItemButton sweet={tags?.sweet}>
+    <ItemButton sweet={tags?.sweet} onPress={props.onPress}>
       <View style={{ flexDirection: 'row' }}>
         <ItemTitle>{name}</ItemTitle>
         {tags?.recommended && <RecommendedIcon />}
         {tags?.vegetarian && <VegetarianIcon />}
+        <View style={{ marginRight: 6 }}></View>
         {rangeArray(spiceLevel).map(i => (
           <SpiceIcon key={i} />
         ))}
         <Price price={price} oldPrice={oldPrice} />
       </View>
-      <ItemDescription>{description}</ItemDescription>
+      <View style={{ flexDirection: 'row', minHeight: 25 }}>
+        <ItemDescription>{description}</ItemDescription>
+        {props.selected && <CheckedIcon />}
+      </View>
     </ItemButton>
   )
 }

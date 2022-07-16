@@ -41,8 +41,8 @@ export const sizes: Record<PizzaSizeId, PizzaSizeInfo> = {
   },
 }
 
-export const flavors: Flavor[] = [
-  {
+export const flavors: Record<string, Flavor> = {
+  1: {
     id: 1,
     name: 'Calabresa',
     description: 'Calabresa, cebola',
@@ -51,7 +51,7 @@ export const flavors: Flavor[] = [
     spiceLevel: 1,
     popularity: 100,
   },
-  {
+  2: {
     id: 2,
     name: 'Palmito',
     description: 'Palmito, tomate',
@@ -59,7 +59,7 @@ export const flavors: Flavor[] = [
     popularity: 20,
     tags: { vegetarian: true },
   },
-  {
+  3: {
     id: 3,
     name: 'Bacon',
     description: 'Bacon',
@@ -67,14 +67,14 @@ export const flavors: Flavor[] = [
     popularity: 80,
     tags: { recommended: true },
   },
-  {
+  4: {
     id: 4,
     name: 'Portuguesa',
     description: 'Presunto, ovo, pimentão',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     popularity: 30,
   },
-  {
+  5: {
     id: 5,
     name: 'Frango',
     description: 'Frango desfiado, catupiry',
@@ -82,7 +82,7 @@ export const flavors: Flavor[] = [
     oldPrices: { xl: 74.9, xxl: 89.9 },
     popularity: 40,
   },
-  {
+  6: {
     id: 6,
     name: 'Pepperoni',
     description: 'Pepperoni',
@@ -90,14 +90,14 @@ export const flavors: Flavor[] = [
     spiceLevel: 2,
     popularity: 50,
   },
-  {
+  7: {
     id: 7,
     name: 'Quatro Queijos',
     description: 'Mussarela, parmesão, provolone, gorgonzola',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     popularity: 70,
   },
-  {
+  8: {
     id: 8,
     name: 'Mexicana',
     description: 'Calabresa, tomate, pimentão, pimenta',
@@ -106,7 +106,7 @@ export const flavors: Flavor[] = [
     popularity: 40,
     tags: { recommended: true },
   },
-  {
+  9: {
     id: 9,
     name: 'Chocolate',
     description: 'Chocolate',
@@ -115,7 +115,7 @@ export const flavors: Flavor[] = [
     popularity: 80,
     tags: { sweet: true },
   },
-  {
+  10: {
     id: 10,
     name: 'Banana',
     description: 'Banana, condensed milk',
@@ -123,4 +123,4 @@ export const flavors: Flavor[] = [
     popularity: 60,
     tags: { sweet: true, recommended: true },
   },
-]
+}

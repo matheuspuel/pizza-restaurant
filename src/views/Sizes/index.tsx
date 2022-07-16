@@ -1,5 +1,9 @@
 import { View } from 'react-native'
 import { flavors, sizes } from 'src/data'
+import { PizzaSizeInfo } from 'src/domain/size'
+import { RootStackScreenProps } from 'src/routes/RootStack'
+import { toCurrency } from 'src/utils/number'
+import { PizzaCircle } from './components/PizzaCircle'
 import {
   Container,
   ItemButton,
@@ -10,10 +14,6 @@ import {
   ItemTitle,
   Title,
 } from './styles'
-import { toCurrency } from 'src/utils/number'
-import { PizzaSizeInfo } from 'src/domain/size'
-import { RootStackScreenProps } from 'src/routes/RootStack'
-import { PizzaCircle } from './components/PizzaCircle'
 
 export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
   const { navigation } = props
@@ -48,7 +48,7 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
 
 const SizeItem = (props: { data: PizzaSizeInfo; onPress: () => void }) => {
   const { id, name, slices, centimeters, maxFlavors } = props.data
-  const price = flavors.reduce(
+  const price = Object.values(flavors).reduce(
     (min, f) => (min < f.prices[id] ? min : f.prices[id]),
     NaN
   )
