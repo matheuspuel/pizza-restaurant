@@ -14,6 +14,8 @@ import {
   sortByRecommended,
 } from 'src/domain/flavor'
 import { PizzaSizeId } from 'src/domain/size'
+import { addPizza } from 'src/redux/slices/order'
+import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { rangeArray } from 'src/utils/array'
 import { absurd } from 'src/utils/function'
@@ -39,9 +41,10 @@ const sortOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
 const filterOptions = ['All', 'Salty', 'Sweet', 'Vegetarian'] as const
 
 const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
+  const { navigation } = props
   const { sizeId } = props.route.params
+  const dispatch = useAppDispatch()
   const { showActionSheetWithOptions } = useActionSheet()
-
   const [sortBy, setSortBy] =
     useState<typeof sortOptions[number]>('Recommended')
   const [filterBy, setFilterBy] = useState<typeof filterOptions[number]>('All')
@@ -62,6 +65,12 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
         if (type !== undefined) setSortBy(type)
       }
     )
+
+  const onNext = () => {
+    if (selectedIds.length < 1) return
+    dispatch(addPizza({ sizeId, flavorIds: selectedIds }))
+    navigation.navigate('Summary')
+  }
 
   const flavorsArray = Object.values(flavors)
 
@@ -151,7 +160,7 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
           ))}
         </View>
         <View style={{ padding: 4 }}>
-          <Button title="Next" onPress={() => console.log('ok')} />
+          <Button title="Next" onPress={onNext} />
         </View>
       </View>
     </>
