@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeId } from 'src/domain/size'
-import { RootState } from '../store'
+import { AppDispatch, RootState } from '../store'
 
 export type Order = {
   pizzas: Array<PizzaOrder>
@@ -25,6 +26,15 @@ const orderSlice = createSlice({
       ...s,
       pizzas: [...s.pizzas, a.payload],
     }),
+    changePizzaSize: (
+      s,
+      a: PayloadAction<{ itemIndex: number; sizeId: PizzaSizeId }>
+    ) => ({
+      ...s,
+      pizzas: s.pizzas.map((p, i) =>
+        i === a.payload.itemIndex ? { ...p, sizeId: a.payload.sizeId } : p
+      ),
+    }),
   },
 })
 
@@ -38,3 +48,18 @@ export const getOrder = (state: RootState) => state.order
 
 export const setOrder = orderSlice.actions.set
 export const addPizza = orderSlice.actions.addPizza
+export const changePizzaSize = orderSlice.actions.changePizzaSize
+
+export const maybeChangePizzaSize =
+  (args: { itemIndex: number; sizeId: PizzaSizeId }) =>
+  (dispatch: AppDispatch, getState: () => RootState) => {
+    const item = getOrder(getState()).pizzas[args.itemIndex]
+    const flavorsCount = item?.flavorIds.length ?? 0
+    const size = sizes[args.sizeId]
+    if (flavorsCount > size.maxFlavors) {
+      return { valid: false, error: 'Too many flavors for this pizza size' }
+    } else {
+      dispatch(changePizzaSize(args))
+      return { valid: true }
+    }
+  }

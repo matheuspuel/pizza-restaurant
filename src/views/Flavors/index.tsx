@@ -40,7 +40,7 @@ import {
 const sortOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
 const filterOptions = ['All', 'Salty', 'Sweet', 'Vegetarian'] as const
 
-const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
+const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
   const { navigation } = props
   const { sizeId } = props.route.params
   const dispatch = useAppDispatch()
@@ -167,7 +167,7 @@ const Flavors0 = (props: RootStackScreenProps<'Flavors'>) => {
   )
 }
 
-export const Flavors = connectActionSheet(Flavors0)
+export const Flavors = connectActionSheet(Flavors_)
 
 const FlavorItem = (props: {
   data: Flavor

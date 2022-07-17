@@ -14,7 +14,7 @@ export type RootStackScreenProps<
 export type RootStackParamList = {
   Home: undefined
   Categories: undefined
-  Sizes: undefined
+  Sizes?: { itemIndex: number }
   Flavors: { sizeId: PizzaSizeId }
   Summary: undefined
 }
