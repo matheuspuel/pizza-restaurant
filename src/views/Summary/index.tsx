@@ -14,13 +14,14 @@ import {
 import { flavors as allFlavors, sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeInfo } from 'src/domain/size'
-import { getOrder } from 'src/redux/slices/order'
-import { useAppSelector } from 'src/redux/store'
+import { getOrder, removePizza } from 'src/redux/slices/order'
+import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { toCurrency } from 'src/utils/number'
 
 const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   const { navigation } = props
+  const dispatch = useAppDispatch()
   const { showActionSheetWithOptions } = useActionSheet()
   const order = useAppSelector(getOrder)
   const [observation, setObservation] = useState('')
@@ -56,7 +57,7 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
             sizeId: args.item.size.id,
           })
         } else if (i === 2) {
-        } else {
+          dispatch(removePizza({ itemIndex: args.index }))
         }
       }
     )

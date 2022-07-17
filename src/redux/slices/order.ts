@@ -44,6 +44,10 @@ const orderSlice = createSlice({
         i === a.payload.itemIndex ? { ...p, flavorIds: a.payload.flavorIds } : p
       ),
     }),
+    removePizza: (s, a: PayloadAction<{ itemIndex: number }>) => ({
+      ...s,
+      pizzas: s.pizzas.filter((p, i) => i !== a.payload.itemIndex),
+    }),
   },
 })
 
@@ -59,6 +63,7 @@ export const setOrder = orderSlice.actions.set
 export const addPizza = orderSlice.actions.addPizza
 export const changePizzaSize = orderSlice.actions.changePizzaSize
 export const changePizzaFlavors = orderSlice.actions.changePizzaFlavors
+export const removePizza = orderSlice.actions.removePizza
 
 export const maybeChangePizzaSize =
   (args: { itemIndex: number; sizeId: PizzaSizeId }) =>
