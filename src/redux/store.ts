@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import authentication from './slices/authentication'
 import connection from './slices/connection'
 import order from './slices/order'
 
 const rootReducer = combineReducers({
   connection,
   order,
+  authentication,
 })
 
 const store = configureStore({

@@ -5,6 +5,7 @@ import {
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useState } from 'react'
 import {
+  Alert,
   Button,
   FlatList,
   Text,
@@ -15,6 +16,7 @@ import {
 import { flavors as allFlavors, sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeInfo } from 'src/domain/size'
+import { getAuthentication } from 'src/redux/slices/authentication'
 import {
   decrementPizza,
   getOrder,
@@ -28,9 +30,10 @@ import { toCurrency } from 'src/utils/number'
 const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   const { navigation } = props
   const dispatch = useAppDispatch()
-  const { showActionSheetWithOptions } = useActionSheet()
   const order = useAppSelector(getOrder)
+  const authentication = useAppSelector(getAuthentication)
   const [observation, setObservation] = useState('')
+  const { showActionSheetWithOptions } = useActionSheet()
 
   const pizzas = order.pizzas.map(p => {
     const size = sizes[p.sizeId]
@@ -70,6 +73,16 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
       }
     )
 
+  const onNext = () => {
+    if (pizzas.length <= 0) {
+      Alert.alert('Error', 'Add at least one item')
+    } else if (!authentication.authenticated) {
+      navigation.navigate('Address')
+    } else {
+      navigation.navigate('Finished')
+    }
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <FlatList
@@ -106,7 +119,10 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
           />
         </View>
         <View style={{ padding: 4 }}>
-          <Button title="Finish Order" />
+          <Button
+            title={authentication.authenticated ? 'Confirm Order' : 'Next'}
+            onPress={onNext}
+          />
         </View>
       </View>
     </View>

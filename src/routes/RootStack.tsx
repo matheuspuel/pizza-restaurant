@@ -1,7 +1,9 @@
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { PizzaSizeId } from 'src/domain/size'
+import { Address } from 'src/views/Address'
 import { Categories } from 'src/views/Categories'
+import { Finished } from 'src/views/Finished'
 import { Flavors } from 'src/views/Flavors'
 import { Home } from 'src/views/Home'
 import { Sizes } from 'src/views/Sizes'
@@ -17,6 +19,8 @@ export type RootStackParamList = {
   Sizes?: { itemIndex: number }
   Flavors: { sizeId: PizzaSizeId; itemIndex?: number }
   Summary: undefined
+  Address: undefined
+  Finished: undefined
 }
 
 const Stack = createStackNavigator<RootStackParamList>()
@@ -40,5 +44,7 @@ export const RootStackNavigator = () => (
     <Stack.Screen name="Sizes" component={Sizes} />
     <Stack.Screen name="Flavors" component={Flavors} />
     <Stack.Screen name="Summary" component={Summary} />
+    <Stack.Screen name="Address" component={Address} />
+    <Stack.Screen name="Finished" component={Finished} />
   </Stack.Navigator>
 )
