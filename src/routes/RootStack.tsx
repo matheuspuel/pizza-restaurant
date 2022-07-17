@@ -15,7 +15,7 @@ export type RootStackParamList = {
   Home: undefined
   Categories: undefined
   Sizes?: { itemIndex: number }
-  Flavors: { sizeId: PizzaSizeId }
+  Flavors: { sizeId: PizzaSizeId; itemIndex?: number }
   Summary: undefined
 }
 

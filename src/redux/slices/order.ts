@@ -35,6 +35,15 @@ const orderSlice = createSlice({
         i === a.payload.itemIndex ? { ...p, sizeId: a.payload.sizeId } : p
       ),
     }),
+    changePizzaFlavors: (
+      s,
+      a: PayloadAction<{ itemIndex: number; flavorIds: number[] }>
+    ) => ({
+      ...s,
+      pizzas: s.pizzas.map((p, i) =>
+        i === a.payload.itemIndex ? { ...p, flavorIds: a.payload.flavorIds } : p
+      ),
+    }),
   },
 })
 
@@ -49,6 +58,7 @@ export const getOrder = (state: RootState) => state.order
 export const setOrder = orderSlice.actions.set
 export const addPizza = orderSlice.actions.addPizza
 export const changePizzaSize = orderSlice.actions.changePizzaSize
+export const changePizzaFlavors = orderSlice.actions.changePizzaFlavors
 
 export const maybeChangePizzaSize =
   (args: { itemIndex: number; sizeId: PizzaSizeId }) =>

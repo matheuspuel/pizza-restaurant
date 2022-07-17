@@ -37,7 +37,10 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
 
   const totalPrice = pizzas.reduce((acc, p) => acc + p.price, 0)
 
-  const showItemOptions = (index: number) =>
+  const showItemOptions = (args: {
+    item: typeof pizzas[number]
+    index: number
+  }) =>
     showActionSheetWithOptions(
       {
         options: ['Change Size', 'Change Flavors', 'Remove Item', 'Cancel'],
@@ -46,8 +49,12 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
       },
       i => {
         if (i === 0) {
-          navigation.navigate('Sizes', { itemIndex: index })
+          navigation.navigate('Sizes', { itemIndex: args.index })
         } else if (i === 1) {
+          navigation.navigate('Flavors', {
+            itemIndex: args.index,
+            sizeId: args.item.size.id,
+          })
         } else if (i === 2) {
         } else {
         }
@@ -59,7 +66,10 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
       <FlatList
         data={pizzas}
         renderItem={({ item, index }) => (
-          <OrderItem data={item} onPress={() => showItemOptions(index)} />
+          <OrderItem
+            data={item}
+            onPress={() => showItemOptions({ item, index })}
+          />
         )}
       />
       <View style={{ padding: 4 }}>

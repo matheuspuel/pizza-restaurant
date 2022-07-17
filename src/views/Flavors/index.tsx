@@ -3,7 +3,7 @@ import {
   useActionSheet,
 } from '@expo/react-native-action-sheet'
 import { useState } from 'react'
-import { Button, ScrollView, Text, View } from 'react-native'
+import { Alert, Button, ScrollView, Text, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { flavors, sizes } from 'src/data'
 import {
@@ -14,8 +14,8 @@ import {
   sortByRecommended,
 } from 'src/domain/flavor'
 import { PizzaSizeId } from 'src/domain/size'
-import { addPizza } from 'src/redux/slices/order'
-import { useAppDispatch } from 'src/redux/store'
+import { addPizza, changePizzaFlavors, getOrder } from 'src/redux/slices/order'
+import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { rangeArray } from 'src/utils/array'
 import { absurd } from 'src/utils/function'
@@ -42,14 +42,17 @@ const filterOptions = ['All', 'Salty', 'Sweet', 'Vegetarian'] as const
 
 const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
   const { navigation } = props
-  const { sizeId } = props.route.params
+  const { sizeId, itemIndex } = props.route.params
   const dispatch = useAppDispatch()
+  const order = useAppSelector(getOrder)
   const { showActionSheetWithOptions } = useActionSheet()
   const [sortBy, setSortBy] =
     useState<typeof sortOptions[number]>('Recommended')
   const [filterBy, setFilterBy] = useState<typeof filterOptions[number]>('All')
   const [search, setSearch] = useState('')
-  const [selectedIds, setSelectedIds] = useState<Array<Flavor['id']>>([])
+  const [selectedIds, setSelectedIds] = useState<Array<Flavor['id']>>(
+    itemIndex === undefined ? [] : order.pizzas[itemIndex]?.flavorIds ?? []
+  )
 
   const maxFlavors = sizes[sizeId].maxFlavors
 
@@ -67,9 +70,16 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
     )
 
   const onNext = () => {
-    if (selectedIds.length < 1) return
-    dispatch(addPizza({ sizeId, flavorIds: selectedIds }))
-    navigation.navigate('Summary')
+    if (selectedIds.length < 1)
+      return Alert.alert('Error', 'Select at least one flavor')
+    if (itemIndex === undefined) {
+      dispatch(addPizza({ sizeId, flavorIds: selectedIds }))
+      navigation.popToTop()
+      navigation.replace('Summary')
+    } else {
+      dispatch(changePizzaFlavors({ itemIndex, flavorIds: selectedIds }))
+      navigation.navigate('Summary')
+    }
   }
 
   const flavorsArray = Object.values(flavors)
