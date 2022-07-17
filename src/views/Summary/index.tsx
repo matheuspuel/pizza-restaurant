@@ -2,6 +2,7 @@ import {
   connectActionSheet,
   useActionSheet,
 } from '@expo/react-native-action-sheet'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useState } from 'react'
 import {
   Button,
@@ -14,7 +15,12 @@ import {
 import { flavors as allFlavors, sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeInfo } from 'src/domain/size'
-import { getOrder, removePizza } from 'src/redux/slices/order'
+import {
+  decrementPizza,
+  getOrder,
+  incrementPizza,
+  removePizza,
+} from 'src/redux/slices/order'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { toCurrency } from 'src/utils/number'
@@ -31,9 +37,11 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
     const flavors = p.flavorIds
       .map(id => allFlavors[id])
       .filter((f): f is Flavor => f !== undefined)
+    const quantity = p.quantity
     const price =
-      flavors.reduce((acc, f) => acc + f.prices[p.sizeId], 0) / flavors.length
-    return { size, flavors, price }
+      (quantity * flavors.reduce((acc, f) => acc + f.prices[p.sizeId], 0)) /
+      flavors.length
+    return { size, flavors, quantity, price }
   })
 
   const totalPrice = pizzas.reduce((acc, p) => acc + p.price, 0)
@@ -69,6 +77,7 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
         renderItem={({ item, index }) => (
           <OrderItem
             data={item}
+            index={index}
             onPress={() => showItemOptions({ item, index })}
           />
         )}
@@ -109,11 +118,14 @@ const OrderItem = (props: {
   data: {
     size: PizzaSizeInfo
     flavors: Flavor[]
+    quantity: number
     price: number
   }
+  index: number
   onPress: () => void
 }) => {
-  const { size, flavors, price } = props.data
+  const { size, flavors, quantity, price } = props.data
+  const dispatch = useAppDispatch()
 
   return (
     <TouchableOpacity
@@ -136,7 +148,36 @@ const OrderItem = (props: {
           </Text>
         ))}
       </View>
-      <Text style={{ padding: 4, fontWeight: '700' }}>{toCurrency(price)}</Text>
+      <View style={{ alignItems: 'flex-end' }}>
+        <View style={{ flexDirection: 'row', padding: 4 }}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(decrementPizza({ itemIndex: props.index }))
+            }}
+          >
+            <MaterialCommunityIcons
+              name="minus"
+              style={{ color: '#bf0000', fontSize: 24 }}
+            />
+          </TouchableOpacity>
+          <Text style={{ textAlign: 'center', width: 20, marginHorizontal: 4 }}>
+            {quantity}
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(incrementPizza({ itemIndex: props.index }))
+            }}
+          >
+            <MaterialCommunityIcons
+              name="plus"
+              style={{ color: '#00bf00', fontSize: 24 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <Text style={{ padding: 4, fontWeight: '700' }}>
+          {toCurrency(price)}
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 }

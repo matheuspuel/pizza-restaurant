@@ -73,7 +73,7 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
     if (selectedIds.length < 1)
       return Alert.alert('Error', 'Select at least one flavor')
     if (itemIndex === undefined) {
-      dispatch(addPizza({ sizeId, flavorIds: selectedIds }))
+      dispatch(addPizza({ sizeId, flavorIds: selectedIds, quantity: 1 }))
       navigation.popToTop()
       navigation.replace('Summary')
     } else {

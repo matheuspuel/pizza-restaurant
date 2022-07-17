@@ -11,6 +11,7 @@ export type Order = {
 export type PizzaOrder = {
   sizeId: PizzaSizeId
   flavorIds: Array<Flavor['id']>
+  quantity: number
 }
 
 const initialState: Order = {
@@ -48,6 +49,24 @@ const orderSlice = createSlice({
       ...s,
       pizzas: s.pizzas.filter((p, i) => i !== a.payload.itemIndex),
     }),
+    incrementPizza: (s, a: PayloadAction<{ itemIndex: number }>) => ({
+      ...s,
+      pizzas: s.pizzas.map((p, i) =>
+        i === a.payload.itemIndex
+          ? { ...p, quantity: Math.min(99, p.quantity + 1) }
+          : p
+      ),
+    }),
+    decrementPizza: (s, a: PayloadAction<{ itemIndex: number }>) => ({
+      ...s,
+      pizzas: s.pizzas
+        .map((p, i) =>
+          i === a.payload.itemIndex
+            ? { ...p, quantity: Math.max(0, p.quantity - 1) }
+            : p
+        )
+        .filter(p => p.quantity > 0),
+    }),
   },
 })
 
@@ -64,6 +83,8 @@ export const addPizza = orderSlice.actions.addPizza
 export const changePizzaSize = orderSlice.actions.changePizzaSize
 export const changePizzaFlavors = orderSlice.actions.changePizzaFlavors
 export const removePizza = orderSlice.actions.removePizza
+export const incrementPizza = orderSlice.actions.incrementPizza
+export const decrementPizza = orderSlice.actions.decrementPizza
 
 export const maybeChangePizzaSize =
   (args: { itemIndex: number; sizeId: PizzaSizeId }) =>
