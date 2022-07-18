@@ -7,6 +7,7 @@ export const Header = styled.View`
 
 export const Title = styled.Text`
   text-align: center;
+  font-family: 'MADE_TOMMY_400Regular';
 `
 
 export const ItemButton = styled.TouchableOpacity<{ sweet?: boolean }>`
@@ -20,12 +21,13 @@ export const ItemButton = styled.TouchableOpacity<{ sweet?: boolean }>`
 
 export const ItemTitle = styled.Text`
   font-size: 18px;
-  font-weight: 700;
+  font-family: 'MADE_TOMMY_700Bold';
   margin-right: 8px;
 `
 
 export const ItemDescription = styled.Text`
   flex: 1;
+  font-family: 'MADE_TOMMY_400Regular';
 `
 
 export const VegetarianIcon = styled(MaterialCommunityIcons).attrs({
@@ -71,7 +73,7 @@ export const CheckedIcon = styled(MaterialCommunityIcons).attrs({
 
 export const PriceText = styled.Text`
   font-size: 16px;
-  font-weight: 500;
+  font-family: 'MADE_TOMMY_500Medium';
 `
 
 export const OldPriceText = styled(PriceText)`

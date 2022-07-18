@@ -151,7 +151,9 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
         ))}
       </ScrollView>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 4 }}>
-        <Text style={{ fontWeight: '700', fontSize: 18, padding: 4 }}>
+        <Text
+          style={{ fontFamily: 'MADE_TOMMY_700Bold', fontSize: 18, padding: 4 }}
+        >
           {selectedIds.length} / {maxFlavors}
         </Text>
         <View
@@ -164,7 +166,10 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
           }}
         >
           {selectedIds.map((id, i) => (
-            <Text key={i} style={{ paddingLeft: 4 }}>
+            <Text
+              key={i}
+              style={{ paddingLeft: 4, fontFamily: 'MADE_TOMMY_400Regular' }}
+            >
               • {flavors[id]?.name ?? '-'}
             </Text>
           ))}

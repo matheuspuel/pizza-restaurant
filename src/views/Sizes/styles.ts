@@ -9,31 +9,38 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   font-size: 18px;
-  font-weight: 700;
+  font-family: 'MADE_TOMMY_700Bold';
   text-align: center;
 `
 
 export const ItemButton = styled.TouchableOpacity`
   flex: 1;
-  margin: 8px;
-  padding: 8px;
+  padding: 4px;
   border-radius: 8px;
 `
 
 export const ItemTitle = styled.Text`
   font-size: 16px;
-  font-weight: 700;
+  font-family: 'MADE_TOMMY_700Bold';
 `
 
-export const ItemSlices = styled.Text``
+export const ItemSlices = styled.Text`
+  font-family: 'MADE_TOMMY_400Regular';
+`
 
-export const ItemCentimeters = styled.Text``
+export const ItemCentimeters = styled.Text`
+  font-family: 'MADE_TOMMY_400Regular';
+`
 
-export const ItemPrice = styled.Text``
+export const ItemPrice = styled.Text`
+  font-family: 'MADE_TOMMY_400Regular';
+`
 
-export const ItemFlavors = styled.Text``
+export const ItemFlavors = styled.Text`
+  font-family: 'MADE_TOMMY_400Regular';
+`
 
 export const ItemPriceValue = styled.Text`
   font-size: 14px;
-  font-weight: 500;
+  font-family: 'MADE_TOMMY_500Medium';
 `

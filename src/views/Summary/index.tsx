@@ -96,9 +96,17 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
         )}
       />
       <View style={{ padding: 4 }}>
-        <Text style={{ alignSelf: 'flex-end', padding: 4 }}>
+        <Text
+          style={{
+            alignSelf: 'flex-end',
+            padding: 4,
+            fontFamily: 'MADE_TOMMY_400Regular',
+          }}
+        >
           Total:{' '}
-          <Text style={{ fontWeight: '700' }}>{toCurrency(totalPrice)}</Text>
+          <Text style={{ fontFamily: 'MADE_TOMMY_700Bold' }}>
+            {toCurrency(totalPrice)}
+          </Text>
         </Text>
         <View style={{ padding: 4 }}>
           <TextInput
@@ -161,10 +169,16 @@ const OrderItem = (props: {
           padding: 4,
         }}
       >
-        <Text>Pizza</Text>
-        <Text> ({size.name})</Text>
+        <Text style={{ fontFamily: 'MADE_TOMMY_400Regular' }}>Pizza</Text>
+        <Text style={{ fontFamily: 'MADE_TOMMY_400Regular' }}>
+          {' '}
+          ({size.name})
+        </Text>
         {flavors.map((f, i) => (
-          <Text key={i} style={{ paddingLeft: 4 }}>
+          <Text
+            key={i}
+            style={{ paddingLeft: 4, fontFamily: 'MADE_TOMMY_400Regular' }}
+          >
             • {f.name}
           </Text>
         ))}
@@ -181,7 +195,14 @@ const OrderItem = (props: {
               style={{ color: '#bf0000', fontSize: 24 }}
             />
           </TouchableOpacity>
-          <Text style={{ textAlign: 'center', width: 20, marginHorizontal: 4 }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              width: 20,
+              marginHorizontal: 4,
+              fontFamily: 'MADE_TOMMY_400Regular',
+            }}
+          >
             {quantity}
           </Text>
           <TouchableOpacity
@@ -195,7 +216,7 @@ const OrderItem = (props: {
             />
           </TouchableOpacity>
         </View>
-        <Text style={{ padding: 4, fontWeight: '700' }}>
+        <Text style={{ padding: 4, fontFamily: 'MADE_TOMMY_700Bold' }}>
           {toCurrency(price)}
         </Text>
       </View>

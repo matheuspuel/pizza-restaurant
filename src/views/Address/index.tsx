@@ -140,7 +140,9 @@ const CustomInput = ({
 }) => {
   return (
     <View style={{ padding: 4 }}>
-      <Text>{title + (required ? ' *' : '')}</Text>
+      <Text style={{ fontFamily: 'MADE_TOMMY_400Regular' }}>
+        {title + (required ? ' *' : '')}
+      </Text>
       <TextInput
         returnKeyType="next"
         blurOnSubmit={false}
@@ -166,7 +168,14 @@ const InputErrors = (props: { errors: string[] }) => {
   return (
     <>
       {props.errors.map((e, i) => (
-        <Text key={i} style={{ color: '#df0000', fontSize: 12 }}>
+        <Text
+          key={i}
+          style={{
+            color: '#df0000',
+            fontSize: 12,
+            fontFamily: 'MADE_TOMMY_400Regular',
+          }}
+        >
           {e}
         </Text>
       ))}

@@ -27,9 +27,10 @@ const Stack = createStackNavigator<RootStackParamList>()
 
 export const RootStackNavigator = () => (
   <Stack.Navigator
-  // screenOptions={{
-  //   headerTintColor: theme.colors.lightText,
-  // }}
+    screenOptions={{
+      // headerTintColor: theme.colors.lightText,
+      headerTitleStyle: { fontFamily: 'MADE_TOMMY_500Medium' },
+    }}
   >
     <Stack.Screen
       name="Home"

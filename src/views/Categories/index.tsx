@@ -31,7 +31,13 @@ const CategoryButton = (props: { children: string; onPress: () => void }) => (
     }}
     onPress={props.onPress}
   >
-    <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 32 }}>
+    <Text
+      style={{
+        textAlign: 'center',
+        fontFamily: 'MADE_TOMMY_700Bold',
+        fontSize: 32,
+      }}
+    >
       {props.children}
     </Text>
   </TouchableOpacity>

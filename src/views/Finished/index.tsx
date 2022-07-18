@@ -1,5 +1,5 @@
 import { Button, Image, Text, View } from 'react-native'
-import scooterDeliveryImage from 'src/assets/image/scooter-delivery.png'
+import scooterDeliveryImage from 'src/assets/images/scooter-delivery.png'
 import { clearOrder } from 'src/redux/slices/order'
 import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
@@ -16,7 +16,13 @@ export const Finished = (props: RootStackScreenProps<'Finished'>) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }} />
-      <Text style={{ textAlign: 'center', fontSize: 28, fontWeight: 'bold' }}>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 28,
+          fontFamily: 'MADE_TOMMY_700Bold',
+        }}
+      >
         Order Received
       </Text>
       <View style={{ flex: 1 }} />
@@ -27,10 +33,24 @@ export const Finished = (props: RootStackScreenProps<'Finished'>) => {
         style={{ alignSelf: 'center', width: 250, height: 250 }}
       />
       <View>
-        <Text style={{ textAlign: 'center', fontSize: 24 }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 24,
+            fontFamily: 'MADE_TOMMY_400Regular',
+          }}
+        >
           Estimated delivery time:
         </Text>
-        <Text style={{ textAlign: 'center', fontSize: 24 }}>45 minutes</Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 24,
+            fontFamily: 'MADE_TOMMY_400Regular',
+          }}
+        >
+          45 minutes
+        </Text>
       </View>
       <View style={{ flex: 1 }} />
       <Button title="OK" onPress={onNext} />

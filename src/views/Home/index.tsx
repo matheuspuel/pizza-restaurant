@@ -1,3 +1,4 @@
+import * as SplashScreen from 'expo-splash-screen'
 import { restaurantName } from 'src/data'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import {
@@ -13,7 +14,7 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
   const { navigation } = props
 
   return (
-    <Container>
+    <Container onLayout={SplashScreen.hideAsync}>
       <RestaurantName>{restaurantName}</RestaurantName>
       <ImageContainer>
         <Image

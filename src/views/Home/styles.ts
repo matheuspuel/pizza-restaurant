@@ -1,5 +1,5 @@
-import styled from 'styled-components/native'
 import { StatusBar } from 'react-native'
+import styled from 'styled-components/native'
 
 export const Container = styled.View`
   flex: 1;
@@ -10,9 +10,9 @@ export const Container = styled.View`
 export const RestaurantName = styled.Text`
   align-self: center;
   font-size: 24px;
-  font-weight: 700;
   color: ${({ theme }) => theme.color.red_900};
   padding: 8px;
+  font-family: MADE_TOMMY_700Bold;
 `
 
 export const ImageContainer = styled.View`
@@ -34,5 +34,5 @@ export const OrderButton = styled.TouchableOpacity`
 export const OrderButtonText = styled.Text`
   color: ${({ theme }) => theme.color.text_contrast};
   font-size: 18px;
-  font-weight: 700;
+  font-family: MADE_TOMMY_700Bold;
 `

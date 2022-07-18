@@ -1,5 +1,5 @@
-import React from 'react'
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
+import React from 'react'
 import { RootStackNavigator } from './RootStack'
 
 let navigationTheme = DefaultTheme
