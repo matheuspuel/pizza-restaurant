@@ -79,7 +79,7 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
     } else if (!authentication.authenticated) {
       navigation.navigate('Address')
     } else {
-      navigation.navigate('Finished')
+      navigation.replace('Finished')
     }
   }
 

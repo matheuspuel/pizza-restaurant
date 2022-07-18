@@ -45,6 +45,10 @@ export const RootStackNavigator = () => (
     <Stack.Screen name="Flavors" component={Flavors} />
     <Stack.Screen name="Summary" component={Summary} />
     <Stack.Screen name="Address" component={Address} />
-    <Stack.Screen name="Finished" component={Finished} />
+    <Stack.Screen
+      name="Finished"
+      component={Finished}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 )
