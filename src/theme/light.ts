@@ -13,8 +13,8 @@ export const lightTheme: Theme = {
     text_contrast: '#efefef',
 
     info: '#1d90f5',
-    warning: '#df0f0f',
-    danger: '#dfaf1f',
+    warning: '#dfaf1f',
+    error: '#df0f0f',
     success: '#1fdf1f',
 
     primary_050: '#fff59f',

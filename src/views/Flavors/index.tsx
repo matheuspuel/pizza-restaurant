@@ -3,7 +3,7 @@ import {
   useActionSheet,
 } from '@expo/react-native-action-sheet'
 import { useState } from 'react'
-import { Alert, Button, ScrollView, Text, View } from 'react-native'
+import { Alert, Button, ScrollView, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import { flavors, sizes } from 'src/data'
 import {
@@ -13,28 +13,19 @@ import {
   sortByPrice,
   sortByRecommended,
 } from 'src/domain/flavor'
-import { PizzaSizeId } from 'src/domain/size'
 import { addPizza, changePizzaFlavors, getOrder } from 'src/redux/slices/order'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
-import { rangeArray } from 'src/utils/array'
 import { absurd } from 'src/utils/function'
-import { toCurrency } from 'src/utils/number'
 import { sort } from 'src/utils/sort'
 import { hasEveryWord } from 'src/utils/string'
+import { FlavorItem } from './components/FlavorItem'
 import {
-  CheckedIcon,
+  FlavorCountText,
+  FooterFlavorsContainer,
+  FooterFlavorText,
   Header,
-  ItemButton,
-  ItemDescription,
-  ItemTitle,
-  OldPriceText,
-  OnSaleIcon,
-  PriceText,
-  RecommendedIcon,
-  SpiceIcon,
   Title,
-  VegetarianIcon,
 } from './styles'
 
 const sortOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
@@ -151,29 +142,16 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
         ))}
       </ScrollView>
       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 4 }}>
-        <Text
-          style={{ fontFamily: 'MADE_TOMMY_700Bold', fontSize: 18, padding: 4 }}
-        >
+        <FlavorCountText>
           {selectedIds.length} / {maxFlavors}
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            padding: 4,
-          }}
-        >
+        </FlavorCountText>
+        <FooterFlavorsContainer>
           {selectedIds.map((id, i) => (
-            <Text
-              key={i}
-              style={{ paddingLeft: 4, fontFamily: 'MADE_TOMMY_400Regular' }}
-            >
+            <FooterFlavorText key={i}>
               • {flavors[id]?.name ?? '-'}
-            </Text>
+            </FooterFlavorText>
           ))}
-        </View>
+        </FooterFlavorsContainer>
         <View style={{ padding: 4 }}>
           <Button title="Next" onPress={onNext} />
         </View>
@@ -183,49 +161,3 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
 }
 
 export const Flavors = connectActionSheet(Flavors_)
-
-const FlavorItem = (props: {
-  data: Flavor
-  sizeId: PizzaSizeId
-  selected?: boolean
-  onPress: () => void
-}) => {
-  const { name, description, prices, tags, spiceLevel, oldPrices } = props.data
-  const price = prices[props.sizeId]
-  const oldPrice = oldPrices?.[props.sizeId]
-
-  return (
-    <ItemButton sweet={tags?.sweet} onPress={props.onPress}>
-      <View style={{ flexDirection: 'row' }}>
-        <ItemTitle>{name}</ItemTitle>
-        {tags?.recommended && <RecommendedIcon />}
-        {tags?.vegetarian && <VegetarianIcon />}
-        <View style={{ marginRight: 6 }}></View>
-        {rangeArray(spiceLevel).map(i => (
-          <SpiceIcon key={i} />
-        ))}
-        <Price price={price} oldPrice={oldPrice} />
-      </View>
-      <View style={{ flexDirection: 'row', minHeight: 25 }}>
-        <ItemDescription>{description}</ItemDescription>
-        {props.selected && <CheckedIcon />}
-      </View>
-    </ItemButton>
-  )
-}
-
-const Price = (props: { price: number; oldPrice?: number }) => {
-  const { price, oldPrice } = props
-
-  return (
-    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-      {oldPrice === undefined ? null : (
-        <>
-          <OnSaleIcon />
-          <OldPriceText>{toCurrency(oldPrice)}</OldPriceText>
-        </>
-      )}
-      <PriceText>{toCurrency(price)}</PriceText>
-    </View>
-  )
-}

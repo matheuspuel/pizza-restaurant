@@ -1,44 +1,22 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Alert } from 'react-native'
 import { RootStackScreenProps } from 'src/routes/RootStack'
+import { CategoryButton } from './components/CategoryButton'
+import { CategoriesContainer } from './styles'
 
 export const Categories = (props: RootStackScreenProps<'Categories'>) => {
   const { navigation } = props
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'space-evenly',
-        padding: 4,
-      }}
-    >
+    <CategoriesContainer>
       <CategoryButton onPress={() => navigation.navigate('Sizes')}>
         Pizza
       </CategoryButton>
-      <CategoryButton onPress={() => {}}>Drinks</CategoryButton>
-      <CategoryButton onPress={() => {}}>Other</CategoryButton>
-    </View>
+      <CategoryButton onPress={() => Alert.alert('Error', 'Not implemented')}>
+        Drinks
+      </CategoryButton>
+      <CategoryButton onPress={() => Alert.alert('Error', 'Not implemented')}>
+        Other
+      </CategoryButton>
+    </CategoriesContainer>
   )
 }
-
-const CategoryButton = (props: { children: string; onPress: () => void }) => (
-  <TouchableOpacity
-    style={{
-      margin: 8,
-      padding: 32,
-      borderRadius: 16,
-      backgroundColor: '#ff7f7f',
-    }}
-    onPress={props.onPress}
-  >
-    <Text
-      style={{
-        textAlign: 'center',
-        fontFamily: 'MADE_TOMMY_700Bold',
-        fontSize: 32,
-      }}
-    >
-      {props.children}
-    </Text>
-  </TouchableOpacity>
-)

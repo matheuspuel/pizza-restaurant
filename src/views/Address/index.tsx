@@ -1,9 +1,10 @@
 import React, { useRef } from 'react'
-import { Button, ScrollView, Text, TextInput, View } from 'react-native'
+import { Button, ScrollView, TextInput, View } from 'react-native'
 import { useValidationState } from 'src/hooks/useValidationState'
 import { setAuthentication } from 'src/redux/slices/authentication'
 import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
+import { CustomInput } from './components/CustomInput'
 
 export const Address = (props: RootStackScreenProps<'Address'>) => {
   const { navigation } = props
@@ -123,62 +124,5 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
         <Button title="Save" onPress={onSave} disabled={hasSomeError} />
       </View>
     </ScrollView>
-  )
-}
-
-const CustomInput = ({
-  title,
-  errors,
-  inputRef,
-  required,
-  ...textInputProps
-}: React.ComponentProps<typeof TextInput> & {
-  inputRef?: React.LegacyRef<TextInput>
-  title: string
-  errors: string[]
-  required?: boolean
-}) => {
-  return (
-    <View style={{ padding: 4 }}>
-      <Text style={{ fontFamily: 'MADE_TOMMY_400Regular' }}>
-        {title + (required ? ' *' : '')}
-      </Text>
-      <TextInput
-        returnKeyType="next"
-        blurOnSubmit={false}
-        {...textInputProps}
-        ref={inputRef}
-        style={[
-          {
-            padding: 8,
-            borderWidth: 1,
-            borderColor: '#bfbfbf',
-            backgroundColor: '#ffffff',
-            borderRadius: 4,
-          },
-          textInputProps.style,
-        ]}
-      />
-      <InputErrors errors={errors} />
-    </View>
-  )
-}
-
-const InputErrors = (props: { errors: string[] }) => {
-  return (
-    <>
-      {props.errors.map((e, i) => (
-        <Text
-          key={i}
-          style={{
-            color: '#df0000',
-            fontSize: 12,
-            fontFamily: 'MADE_TOMMY_400Regular',
-          }}
-        >
-          {e}
-        </Text>
-      ))}
-    </>
   )
 }

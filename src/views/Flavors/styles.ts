@@ -80,3 +80,22 @@ export const OldPriceText = styled(PriceText)`
   text-decoration-line: line-through;
   margin-right: 8px;
 `
+
+export const FlavorCountText = styled.Text`
+  font-family: MADE_TOMMY_700Bold;
+  font-size: 18px;
+  padding: 4px;
+`
+
+export const FooterFlavorText = styled.Text`
+  font-family: MADE_TOMMY_400Regular;
+  padding-left: 4px;
+`
+
+export const FooterFlavorsContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 4px;
+`

@@ -2,30 +2,16 @@ import {
   connectActionSheet,
   useActionSheet,
 } from '@expo/react-native-action-sheet'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import {
-  Alert,
-  Button,
-  FlatList,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, Button, FlatList, TextInput, View } from 'react-native'
 import { flavors as allFlavors, sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
-import { PizzaSizeInfo } from 'src/domain/size'
 import { getAuthentication } from 'src/redux/slices/authentication'
-import {
-  decrementPizza,
-  getOrder,
-  incrementPizza,
-  removePizza,
-  setObservation,
-} from 'src/redux/slices/order'
+import { getOrder, removePizza, setObservation } from 'src/redux/slices/order'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { toCurrency } from 'src/utils/number'
+import { OrderItem } from './components/OrderItem'
+import { TotalPriceText, TotalText } from './styles'
 
 const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   const { navigation } = props
@@ -96,18 +82,12 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
         )}
       />
       <View style={{ padding: 4 }}>
-        <Text
-          style={{
-            alignSelf: 'flex-end',
-            padding: 4,
-            fontFamily: 'MADE_TOMMY_400Regular',
-          }}
-        >
+        <TotalText>
           Total:{' '}
-          <Text style={{ fontFamily: 'MADE_TOMMY_700Bold' }}>
+          <TotalPriceText style={{ fontFamily: 'MADE_TOMMY_700Bold' }}>
             {toCurrency(totalPrice)}
-          </Text>
-        </Text>
+          </TotalPriceText>
+        </TotalText>
         <View style={{ padding: 4 }}>
           <TextInput
             value={order.observation}
@@ -142,84 +122,3 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   )
 }
 export const Summary = connectActionSheet(Summary_)
-
-const OrderItem = (props: {
-  data: {
-    size: PizzaSizeInfo
-    flavors: Flavor[]
-    quantity: number
-    price: number
-  }
-  index: number
-  onPress: () => void
-}) => {
-  const { size, flavors, quantity, price } = props.data
-  const dispatch = useAppDispatch()
-
-  return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      style={{ flexDirection: 'row', padding: 4 }}
-    >
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          padding: 4,
-        }}
-      >
-        <Text style={{ fontFamily: 'MADE_TOMMY_400Regular' }}>Pizza</Text>
-        <Text style={{ fontFamily: 'MADE_TOMMY_400Regular' }}>
-          {' '}
-          ({size.name})
-        </Text>
-        {flavors.map((f, i) => (
-          <Text
-            key={i}
-            style={{ paddingLeft: 4, fontFamily: 'MADE_TOMMY_400Regular' }}
-          >
-            • {f.name}
-          </Text>
-        ))}
-      </View>
-      <View style={{ alignItems: 'flex-end' }}>
-        <View style={{ flexDirection: 'row', padding: 4 }}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(decrementPizza({ itemIndex: props.index }))
-            }}
-          >
-            <MaterialCommunityIcons
-              name="minus"
-              style={{ color: '#bf0000', fontSize: 24 }}
-            />
-          </TouchableOpacity>
-          <Text
-            style={{
-              textAlign: 'center',
-              width: 20,
-              marginHorizontal: 4,
-              fontFamily: 'MADE_TOMMY_400Regular',
-            }}
-          >
-            {quantity}
-          </Text>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(incrementPizza({ itemIndex: props.index }))
-            }}
-          >
-            <MaterialCommunityIcons
-              name="plus"
-              style={{ color: '#00bf00', fontSize: 24 }}
-            />
-          </TouchableOpacity>
-        </View>
-        <Text style={{ padding: 4, fontFamily: 'MADE_TOMMY_700Bold' }}>
-          {toCurrency(price)}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  )
-}

@@ -12,7 +12,7 @@ export type ThemeColors = ThemeColorsBase & {
 
   info: Color
   warning: Color
-  danger: Color
+  error: Color
   success: Color
 
   primary_050: Color
