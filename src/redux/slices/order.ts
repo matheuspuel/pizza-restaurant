@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from '../store'
 
 export type Order = {
   pizzas: Array<PizzaOrder>
+  observation: string
 }
 
 export type PizzaOrder = {
@@ -16,6 +17,7 @@ export type PizzaOrder = {
 
 const initialState: Order = {
   pizzas: [],
+  observation: '',
 }
 
 const orderSlice = createSlice({
@@ -67,6 +69,11 @@ const orderSlice = createSlice({
         )
         .filter(p => p.quantity > 0),
     }),
+    clearOrder: () => initialState,
+    setObservation: (s, a: PayloadAction<string>) => ({
+      ...s,
+      observation: a.payload,
+    }),
   },
 })
 
@@ -85,6 +92,8 @@ export const changePizzaFlavors = orderSlice.actions.changePizzaFlavors
 export const removePizza = orderSlice.actions.removePizza
 export const incrementPizza = orderSlice.actions.incrementPizza
 export const decrementPizza = orderSlice.actions.decrementPizza
+export const clearOrder = orderSlice.actions.clearOrder
+export const setObservation = orderSlice.actions.setObservation
 
 export const maybeChangePizzaSize =
   (args: { itemIndex: number; sizeId: PizzaSizeId }) =>

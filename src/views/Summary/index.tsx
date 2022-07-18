@@ -3,7 +3,6 @@ import {
   useActionSheet,
 } from '@expo/react-native-action-sheet'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import { useState } from 'react'
 import {
   Alert,
   Button,
@@ -22,6 +21,7 @@ import {
   getOrder,
   incrementPizza,
   removePizza,
+  setObservation,
 } from 'src/redux/slices/order'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
@@ -32,7 +32,6 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   const dispatch = useAppDispatch()
   const order = useAppSelector(getOrder)
   const authentication = useAppSelector(getAuthentication)
-  const [observation, setObservation] = useState('')
   const { showActionSheetWithOptions } = useActionSheet()
 
   const pizzas = order.pizzas.map(p => {
@@ -86,6 +85,7 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
+        style={{ flex: 1 }}
         data={pizzas}
         renderItem={({ item, index }) => (
           <OrderItem
@@ -102,14 +102,19 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
         </Text>
         <View style={{ padding: 4 }}>
           <TextInput
-            value={observation}
-            onChangeText={setObservation}
+            value={order.observation}
+            onChangeText={t => dispatch(setObservation(t))}
             placeholder="Observations"
             multiline
             numberOfLines={3}
             returnKeyType="none"
             textAlignVertical="top"
-            style={{ padding: 4, borderRadius: 4, backgroundColor: '#dfdfdf' }}
+            style={{
+              height: 66,
+              padding: 4,
+              borderRadius: 4,
+              backgroundColor: '#dfdfdf',
+            }}
           />
         </View>
         <View style={{ padding: 4 }}>

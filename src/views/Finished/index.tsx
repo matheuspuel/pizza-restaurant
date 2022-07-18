@@ -1,9 +1,17 @@
 import { Button, Image, Text, View } from 'react-native'
 import scooterDeliveryImage from 'src/assets/image/scooter-delivery.png'
+import { clearOrder } from 'src/redux/slices/order'
+import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 
 export const Finished = (props: RootStackScreenProps<'Finished'>) => {
   const { navigation } = props
+  const dispatch = useAppDispatch()
+
+  const onNext = () => {
+    dispatch(clearOrder())
+    navigation.replace('Home')
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -25,7 +33,7 @@ export const Finished = (props: RootStackScreenProps<'Finished'>) => {
         <Text style={{ textAlign: 'center', fontSize: 24 }}>45 minutes</Text>
       </View>
       <View style={{ flex: 1 }} />
-      <Button title="OK" onPress={() => navigation.replace('Home')} />
+      <Button title="OK" onPress={onNext} />
     </View>
   )
 }
