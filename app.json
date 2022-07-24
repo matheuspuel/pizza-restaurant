@@ -4,6 +4,8 @@
     "slug": "pizza-restaurant",
     "version": "1.0.0",
     "owner": "matheuspuel",
+    "privacy": "public",
+    "description": "Example app for a pizza restaurant",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
