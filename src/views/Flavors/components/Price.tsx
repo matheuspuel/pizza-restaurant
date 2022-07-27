@@ -1,19 +1,26 @@
-import { View } from 'react-native'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { Flex, Icon, Text } from 'native-base'
 import { toCurrency } from 'src/utils/number'
-import { OldPriceText, OnSaleIcon, PriceText } from '../styles'
 
 export const Price = (props: { price: number; oldPrice?: number }) => {
   const { price, oldPrice } = props
 
   return (
-    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+    <Flex flex={1} direction="row" justify="flex-end" align="center">
       {oldPrice === undefined ? null : (
         <>
-          <OnSaleIcon />
-          <OldPriceText>{toCurrency(oldPrice)}</OldPriceText>
+          <Icon
+            as={<MaterialCommunityIcons name="sale" />}
+            color="red.700"
+            size="md"
+            mr="2"
+          />
+          <Text mr="2" textDecorationLine="line-through">
+            {toCurrency(oldPrice)}
+          </Text>
         </>
       )}
-      <PriceText>{toCurrency(price)}</PriceText>
-    </View>
+      <Text bold>{toCurrency(price)}</Text>
+    </Flex>
   )
 }

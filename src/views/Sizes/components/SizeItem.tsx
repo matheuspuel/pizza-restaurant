@@ -1,15 +1,7 @@
-import { View } from 'react-native'
+import { Flex, Pressable, Text } from 'native-base'
 import { flavors } from 'src/data'
 import { PizzaSizeInfo } from 'src/domain/size'
 import { toCurrency } from 'src/utils/number'
-import {
-  ItemButton,
-  ItemCentimeters,
-  ItemPrice,
-  ItemPriceValue,
-  ItemSlices,
-  ItemTitle,
-} from '../styles'
 import { PizzaCircle } from './PizzaCircle'
 
 export const SizeItem = (props: {
@@ -23,19 +15,21 @@ export const SizeItem = (props: {
   )
 
   return (
-    <ItemButton onPress={props.onPress}>
-      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+    <Pressable flex={1} onPress={props.onPress}>
+      <Flex direction="column" align="center">
         <PizzaCircle centimeters={centimeters} slices={slices} />
-        <ItemTitle>{name}</ItemTitle>
-        <ItemSlices>{slices} slices</ItemSlices>
-        <ItemCentimeters>{centimeters}cm</ItemCentimeters>
-        <ItemSlices>
+        <Text fontSize="md" bold>
+          {name}
+        </Text>
+        <Text>{slices} slices</Text>
+        <Text>{centimeters}cm</Text>
+        <Text>
           {maxFlavors} {maxFlavors < 2 ? 'flavor' : 'flavors'}
-        </ItemSlices>
-        <ItemPrice>
-          from <ItemPriceValue>{toCurrency(price)}</ItemPriceValue>
-        </ItemPrice>
-      </View>
-    </ItemButton>
+        </Text>
+        <Text>
+          from <Text fontWeight="medium">{toCurrency(price)}</Text>
+        </Text>
+      </Flex>
+    </Pressable>
   )
 }

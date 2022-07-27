@@ -1,17 +1,10 @@
-import { TouchableOpacity, View } from 'react-native'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { Flex, Icon, Pressable, Text } from 'native-base'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeInfo } from 'src/domain/size'
 import { decrementPizza, incrementPizza } from 'src/redux/slices/order'
 import { useAppDispatch } from 'src/redux/store'
 import { toCurrency } from 'src/utils/number'
-import {
-  FlavorText,
-  ItemNameText,
-  ItemQuantityText,
-  MinusIcon,
-  OrderItemPriceText,
-  PlusIcon,
-} from '../styles'
 
 export const OrderItem = (props: {
   data: {
@@ -27,34 +20,43 @@ export const OrderItem = (props: {
   const dispatch = useAppDispatch()
 
   return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      style={{ flexDirection: 'row', padding: 4 }}
-    >
-      <View
-        style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', padding: 4 }}
-      >
-        <ItemNameText>Pizza ({size.name})</ItemNameText>
+    <Pressable onPress={props.onPress} flexDirection="row" p="1">
+      <Flex flex={1} direction="row" flexWrap="wrap" p="1">
+        <Text>Pizza ({size.name})</Text>
         {flavors.map((f, i) => (
-          <FlavorText key={i}>• {f.name}</FlavorText>
+          <Text key={i} pl="1">
+            • {f.name}
+          </Text>
         ))}
-      </View>
-      <View style={{ alignItems: 'flex-end' }}>
-        <View style={{ flexDirection: 'row', padding: 4 }}>
-          <TouchableOpacity
+      </Flex>
+      <Flex align="flex-end">
+        <Flex direction="row" p="1">
+          <Pressable
             onPress={() => dispatch(decrementPizza({ itemIndex: props.index }))}
           >
-            <MinusIcon />
-          </TouchableOpacity>
-          <ItemQuantityText>{quantity}</ItemQuantityText>
-          <TouchableOpacity
+            <Icon
+              as={<MaterialCommunityIcons name="minus" />}
+              color="error.500"
+              size="lg"
+            />
+          </Pressable>
+          <Text textAlign="center" w="5" mx="1">
+            {quantity}
+          </Text>
+          <Pressable
             onPress={() => dispatch(incrementPizza({ itemIndex: props.index }))}
           >
-            <PlusIcon />
-          </TouchableOpacity>
-        </View>
-        <OrderItemPriceText>{toCurrency(price)}</OrderItemPriceText>
-      </View>
-    </TouchableOpacity>
+            <Icon
+              as={<MaterialCommunityIcons name="plus" />}
+              color="success.500"
+              size="lg"
+            />
+          </Pressable>
+        </Flex>
+        <Text p="1" bold>
+          {toCurrency(price)}
+        </Text>
+      </Flex>
+    </Pressable>
   )
 }

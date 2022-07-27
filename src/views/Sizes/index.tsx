@@ -1,11 +1,11 @@
-import { Alert, View } from 'react-native'
+import { Flex, Text } from 'native-base'
+import { Alert } from 'react-native'
 import { sizes } from 'src/data'
 import { PizzaSizeInfo } from 'src/domain/size'
 import { maybeChangePizzaSize } from 'src/redux/slices/order'
 import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { SizeItem } from './components/SizeItem'
-import { Container, Title } from './styles'
 
 const sizesArray = Object.values(sizes)
 const sizesRow1 = sizesArray.slice(0, 3)
@@ -31,18 +31,20 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
   }
 
   return (
-    <Container>
-      <Title>Choose the Size</Title>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+    <Flex flex={1} p="2" bg="background" justify="space-evenly">
+      <Text textAlign="center" fontSize="lg" bold>
+        Choose the Size
+      </Text>
+      <Flex direction="row" align="flex-end">
         {sizesRow1.map(s => (
           <SizeItem key={s.id} data={s} onPress={() => onPress(s)} />
         ))}
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+      </Flex>
+      <Flex direction="row" align="flex-end">
         {sizesRow2.map(s => (
           <SizeItem key={s.id} data={s} onPress={() => onPress(s)} />
         ))}
-      </View>
-    </Container>
+      </Flex>
+    </Flex>
   )
 }

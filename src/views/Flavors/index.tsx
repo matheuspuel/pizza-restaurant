@@ -1,10 +1,14 @@
 import {
-  connectActionSheet,
-  useActionSheet,
-} from '@expo/react-native-action-sheet'
+  Actionsheet,
+  Button,
+  Flex,
+  Input,
+  ScrollView,
+  Text,
+  useDisclose,
+} from 'native-base'
 import { useState } from 'react'
-import { Alert, Button, ScrollView, View } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { Alert } from 'react-native'
 import { flavors, sizes } from 'src/data'
 import {
   Flavor,
@@ -20,23 +24,15 @@ import { absurd } from 'src/utils/function'
 import { sort } from 'src/utils/sort'
 import { hasEveryWord } from 'src/utils/string'
 import { FlavorItem } from './components/FlavorItem'
-import {
-  FlavorCountText,
-  FooterFlavorsContainer,
-  FooterFlavorText,
-  Header,
-  Title,
-} from './styles'
 
 const sortOptions = ['Name', 'Price', 'Popularity', 'Recommended'] as const
 const filterOptions = ['All', 'Salty', 'Sweet', 'Vegetarian'] as const
 
-const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
+export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
   const { navigation } = props
   const { sizeId, itemIndex } = props.route.params
   const dispatch = useAppDispatch()
   const order = useAppSelector(getOrder)
-  const { showActionSheetWithOptions } = useActionSheet()
   const [sortBy, setSortBy] =
     useState<typeof sortOptions[number]>('Recommended')
   const [filterBy, setFilterBy] = useState<typeof filterOptions[number]>('All')
@@ -44,21 +40,10 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
   const [selectedIds, setSelectedIds] = useState<Array<Flavor['id']>>(
     itemIndex === undefined ? [] : order.pizzas[itemIndex]?.flavorIds ?? []
   )
+  const modal = useDisclose()
+  const [modalSelected, setModalSelected] = useState<{}>()
 
   const maxFlavors = sizes[sizeId].maxFlavors
-
-  const showSortBy = () =>
-    showActionSheetWithOptions(
-      {
-        options: [...sortOptions, 'Cancel'],
-        title: 'Sort by',
-        destructiveButtonIndex: sortOptions.length,
-      },
-      i => {
-        const type = sortOptions[i ?? -1]
-        if (type !== undefined) setSortBy(type)
-      }
-    )
 
   const onNext = () => {
     if (selectedIds.length < 1)
@@ -107,21 +92,19 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
 
   return (
     <>
-      <Header>
-        <Title>Flavors</Title>
-        <TextInput
-          style={{ padding: 8, margin: 8, backgroundColor: '#ffffff' }}
-          value={search}
-          onChangeText={setSearch}
-        />
-        <Button title="Sort by" onPress={showSortBy} />
-        <Title>Filters</Title>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+      <Flex p="2">
+        <Input m="2" bg="white" value={search} onChangeText={setSearch} />
+        <Button m="2" onPress={modal.onOpen}>
+          Sort by
+        </Button>
+        <Flex my="2" direction="row" justify="space-evenly">
           {filterOptions.map(op => (
-            <Button key={op} title={op} onPress={() => setFilterBy(op)} />
+            <Button key={op} onPress={() => setFilterBy(op)}>
+              {op}
+            </Button>
           ))}
-        </View>
-      </Header>
+        </Flex>
+      </Flex>
       <ScrollView contentContainerStyle={{ padding: 4 }}>
         {sortedFlavors.map(f => (
           <FlavorItem
@@ -141,23 +124,42 @@ const Flavors_ = (props: RootStackScreenProps<'Flavors'>) => {
           />
         ))}
       </ScrollView>
-      <View style={{ flexDirection: 'row', alignItems: 'center', padding: 4 }}>
-        <FlavorCountText>
+      <Flex direction="row" align="center" p="1">
+        <Text p="1" bold fontSize="lg">
           {selectedIds.length} / {maxFlavors}
-        </FlavorCountText>
-        <FooterFlavorsContainer>
+        </Text>
+        <Flex flex={1} direction="row" justify="center" flexWrap="wrap" p="1">
           {selectedIds.map((id, i) => (
-            <FooterFlavorText key={i}>
+            <Text key={i} pl="1">
               • {flavors[id]?.name ?? '-'}
-            </FooterFlavorText>
+            </Text>
           ))}
-        </FooterFlavorsContainer>
-        <View style={{ padding: 4 }}>
-          <Button title="Next" onPress={onNext} />
-        </View>
-      </View>
+        </Flex>
+        <Button m="1" onPress={onNext}>
+          Next
+        </Button>
+      </Flex>
+      <Actionsheet isOpen={modal.isOpen} onClose={modal.onClose}>
+        <Actionsheet.Content>
+          <Flex w="full" h={60} px={4} justify="center">
+            <Text fontSize="md" color="gray.500">
+              Sort by
+            </Text>
+          </Flex>
+          {sortOptions.map((o, i) => (
+            <Actionsheet.Item
+              key={o}
+              onPress={() => {
+                const type = sortOptions[i ?? -1]
+                if (type !== undefined) setSortBy(type)
+              }}
+            >
+              {o}
+            </Actionsheet.Item>
+          ))}
+          <Actionsheet.Item>Cancel</Actionsheet.Item>
+        </Actionsheet.Content>
+      </Actionsheet>
     </>
   )
 }
-
-export const Flavors = connectActionSheet(Flavors_)

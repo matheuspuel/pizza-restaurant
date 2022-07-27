@@ -1,16 +1,8 @@
-import { View } from 'react-native'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { Flex, Icon, Pressable, Text } from 'native-base'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeId } from 'src/domain/size'
 import { rangeArray } from 'src/utils/array'
-import {
-  CheckedIcon,
-  ItemButton,
-  ItemDescription,
-  ItemTitle,
-  RecommendedIcon,
-  SpiceIcon,
-  VegetarianIcon,
-} from '../styles'
 import { Price } from './Price'
 
 export const FlavorItem = (props: {
@@ -24,21 +16,56 @@ export const FlavorItem = (props: {
   const oldPrice = oldPrices?.[props.sizeId]
 
   return (
-    <ItemButton sweet={tags?.sweet} onPress={props.onPress}>
-      <View style={{ flexDirection: 'row' }}>
-        <ItemTitle>{name}</ItemTitle>
-        {tags?.recommended && <RecommendedIcon />}
-        {tags?.vegetarian && <VegetarianIcon />}
-        <View style={{ marginRight: 6 }}></View>
+    <Pressable
+      m="1"
+      p="2"
+      borderWidth="1"
+      rounded="md"
+      bg={tags?.sweet ? '#bc9c87' : 'yellow.100'}
+      onPress={props.onPress}
+    >
+      <Flex direction="row" align="center">
+        <Text fontSize="md" bold mr="2">
+          {name}
+        </Text>
+        {tags?.recommended && (
+          <Icon
+            as={<MaterialCommunityIcons name="star" />}
+            color="yellow.600"
+            size="md"
+            mr="2"
+          />
+        )}
+        {tags?.vegetarian && (
+          <Icon
+            as={<MaterialCommunityIcons name="leaf" />}
+            color="green.700"
+            size="md"
+            mr="2"
+          />
+        )}
+        <Flex mr="1.5"></Flex>
         {rangeArray(spiceLevel).map(i => (
-          <SpiceIcon key={i} />
+          <Icon
+            key={i}
+            as={<MaterialCommunityIcons name="fire" />}
+            color="red.700"
+            size="md"
+            ml="-3"
+          />
         ))}
         <Price price={price} oldPrice={oldPrice} />
-      </View>
-      <View style={{ flexDirection: 'row', minHeight: 25 }}>
-        <ItemDescription>{description}</ItemDescription>
-        {props.selected && <CheckedIcon />}
-      </View>
-    </ItemButton>
+      </Flex>
+      <Flex direction="row">
+        <Text flex={1}>{description}</Text>
+        {props.selected && (
+          <Icon
+            as={<MaterialCommunityIcons name="check-bold" />}
+            color="green.700"
+            size="md"
+          />
+        )}
+      </Flex>
+    </Pressable>
   )
 }

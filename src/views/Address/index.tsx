@@ -1,5 +1,6 @@
+import { Button, Flex, ScrollView } from 'native-base'
 import React, { useRef } from 'react'
-import { Button, ScrollView, TextInput, View } from 'react-native'
+import { TextInput } from 'react-native'
 import { useValidationState } from 'src/hooks/useValidationState'
 import { setAuthentication } from 'src/redux/slices/authentication'
 import { useAppDispatch } from 'src/redux/store'
@@ -119,10 +120,10 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
         onBlur={complement.updateErrors}
         onSubmitEditing={onSave}
       />
-      <View style={{ flex: 1 }} />
-      <View style={{ padding: 4 }}>
-        <Button title="Save" onPress={onSave} disabled={hasSomeError} />
-      </View>
+      <Flex style={{ flex: 1 }} />
+      <Button m="1" onPress={onSave} isDisabled={hasSomeError}>
+        Save
+      </Button>
     </ScrollView>
   )
 }

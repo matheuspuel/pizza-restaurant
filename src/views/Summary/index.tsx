@@ -1,8 +1,14 @@
 import {
-  connectActionSheet,
-  useActionSheet,
-} from '@expo/react-native-action-sheet'
-import { Alert, Button, FlatList, TextInput, View } from 'react-native'
+  Actionsheet,
+  Button,
+  FlatList,
+  Flex,
+  Text,
+  TextArea,
+  useDisclose,
+} from 'native-base'
+import { useState } from 'react'
+import { Alert } from 'react-native'
 import { flavors as allFlavors, sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import { getAuthentication } from 'src/redux/slices/authentication'
@@ -11,14 +17,17 @@ import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import { toCurrency } from 'src/utils/number'
 import { OrderItem } from './components/OrderItem'
-import { TotalPriceText, TotalText } from './styles'
 
-const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
+export const Summary = (props: RootStackScreenProps<'Summary'>) => {
   const { navigation } = props
   const dispatch = useAppDispatch()
   const order = useAppSelector(getOrder)
   const authentication = useAppSelector(getAuthentication)
-  const { showActionSheetWithOptions } = useActionSheet()
+  const modal = useDisclose()
+  const [selected, setSelected] = useState<{
+    item: typeof pizzas[number]
+    index: number
+  }>()
 
   const pizzas = order.pizzas.map(p => {
     const size = sizes[p.sizeId]
@@ -34,30 +43,6 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
 
   const totalPrice = pizzas.reduce((acc, p) => acc + p.price, 0)
 
-  const showItemOptions = (args: {
-    item: typeof pizzas[number]
-    index: number
-  }) =>
-    showActionSheetWithOptions(
-      {
-        options: ['Change Size', 'Change Flavors', 'Remove Item', 'Cancel'],
-        title: 'Actions',
-        destructiveButtonIndex: 3,
-      },
-      i => {
-        if (i === 0) {
-          navigation.navigate('Sizes', { itemIndex: args.index })
-        } else if (i === 1) {
-          navigation.navigate('Flavors', {
-            itemIndex: args.index,
-            sizeId: args.item.size.id,
-          })
-        } else if (i === 2) {
-          dispatch(removePizza({ itemIndex: args.index }))
-        }
-      }
-    )
-
   const onNext = () => {
     if (pizzas.length <= 0) {
       Alert.alert('Error', 'Add at least one item')
@@ -69,56 +54,84 @@ const Summary_ = (props: RootStackScreenProps<'Summary'>) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <Flex flex={1}>
       <FlatList
-        style={{ flex: 1 }}
+        flex={1}
         data={pizzas}
         renderItem={({ item, index }) => (
           <OrderItem
             data={item}
             index={index}
-            onPress={() => showItemOptions({ item, index })}
+            onPress={() => {
+              modal.onOpen()
+              setSelected({ item, index })
+            }}
           />
         )}
       />
-      <View style={{ padding: 4 }}>
-        <TotalText>
+      <Flex p="1">
+        <Text alignSelf="flex-end" p="1">
           Total:{' '}
-          <TotalPriceText style={{ fontFamily: 'MADE_TOMMY_700Bold' }}>
+          <Text alignSelf="flex-end" p="1" bold>
             {toCurrency(totalPrice)}
-          </TotalPriceText>
-        </TotalText>
-        <View style={{ padding: 4 }}>
-          <TextInput
+          </Text>
+        </Text>
+        <Flex p="1">
+          <TextArea
+            autoCompleteType={undefined}
             value={order.observation}
             onChangeText={t => dispatch(setObservation(t))}
             placeholder="Observations"
-            multiline
-            numberOfLines={3}
-            returnKeyType="none"
-            textAlignVertical="top"
-            style={{
-              height: 66,
-              padding: 4,
-              borderRadius: 4,
-              backgroundColor: '#dfdfdf',
-            }}
+            bg="white"
           />
-        </View>
-        <View style={{ padding: 4 }}>
-          <Button
-            title="Add Item"
-            onPress={() => navigation.navigate('Categories')}
-          />
-        </View>
-        <View style={{ padding: 4 }}>
-          <Button
-            title={authentication.authenticated ? 'Confirm Order' : 'Next'}
-            onPress={onNext}
-          />
-        </View>
-      </View>
-    </View>
+        </Flex>
+        <Flex p="1">
+          <Button onPress={() => navigation.navigate('Categories')}>
+            Add Item
+          </Button>
+        </Flex>
+        <Flex p="1">
+          <Button onPress={onNext}>
+            {authentication.authenticated ? 'Confirm Order' : 'Next'}
+          </Button>
+        </Flex>
+      </Flex>
+      <Actionsheet isOpen={modal.isOpen} onClose={modal.onClose}>
+        <Actionsheet.Content>
+          <Flex w="full" h={60} px="4" justify="center">
+            <Text fontSize="md" color="gray.500">
+              Actions
+            </Text>
+          </Flex>
+          <Actionsheet.Item
+            onPress={() =>
+              selected &&
+              navigation.navigate('Sizes', { itemIndex: selected.index })
+            }
+          >
+            Change Size
+          </Actionsheet.Item>
+          <Actionsheet.Item
+            onPress={() =>
+              selected &&
+              navigation.navigate('Flavors', {
+                itemIndex: selected.index,
+                sizeId: selected.item.size.id,
+              })
+            }
+          >
+            Change Flavors
+          </Actionsheet.Item>
+          <Actionsheet.Item
+            onPress={() =>
+              selected && dispatch(removePizza({ itemIndex: selected.index }))
+            }
+          >
+            Remove Item
+          </Actionsheet.Item>
+          <Actionsheet.Item>Cancel</Actionsheet.Item>
+        </Actionsheet.Content>
+      </Actionsheet>
+    </Flex>
   )
 }
-export const Summary = connectActionSheet(Summary_)
