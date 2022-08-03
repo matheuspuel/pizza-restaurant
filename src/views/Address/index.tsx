@@ -2,6 +2,7 @@ import { Button, Flex, ScrollView } from 'native-base'
 import React, { useRef } from 'react'
 import { TextInput } from 'react-native'
 import { useValidationState } from 'src/hooks/useValidationState'
+import { t } from 'src/i18n'
 import { setAuthentication } from 'src/redux/slices/authentication'
 import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
@@ -18,16 +19,16 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
     useRef<TextInput | null>(null),
   ] as const
   const phone = useValidationState({
-    validate: v => (v.length > 0 ? [] : ['Required Field']),
+    validate: v => (v.length > 0 ? [] : [t('required_field')]),
   })
   const city = useValidationState({
-    validate: v => (v.length > 0 ? [] : ['Required Field']),
+    validate: v => (v.length > 0 ? [] : [t('required_field')]),
   })
   const street = useValidationState({
-    validate: v => (v.length > 0 ? [] : ['Required Field']),
+    validate: v => (v.length > 0 ? [] : [t('required_field')]),
   })
   const number = useValidationState({
-    validate: v => (v.length > 0 ? [] : ['Required Field']),
+    validate: v => (v.length > 0 ? [] : [t('required_field')]),
   })
   const complement = useValidationState({ validate: v => [] })
 
@@ -50,7 +51,7 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
       keyboardShouldPersistTaps="handled"
     >
       <CustomInput
-        title="Phone Number"
+        title={t('phone_number')}
         errors={phone.errors}
         required
         inputRef={inputRefs[0]}
@@ -66,11 +67,11 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
         keyboardType="numeric"
       />
       <CustomInput
-        title="City"
+        title={t('city')}
         errors={city.errors}
         required
         inputRef={inputRefs[1]}
-        placeholder="São Paulo"
+        placeholder={t('city_placeholder')}
         value={city.value}
         onChangeText={t => {
           city.setValue(t)
@@ -80,11 +81,11 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
         onSubmitEditing={() => inputRefs[2].current?.focus()}
       />
       <CustomInput
-        title="Street"
+        title={t('street')}
         errors={street.errors}
         required
         inputRef={inputRefs[2]}
-        placeholder="Rua Brasil"
+        placeholder={t('street_placeholder')}
         value={street.value}
         onChangeText={t => {
           street.setValue(t)
@@ -94,7 +95,7 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
         onSubmitEditing={() => inputRefs[3].current?.focus()}
       />
       <CustomInput
-        title="Number"
+        title={t('number')}
         errors={number.errors}
         required
         inputRef={inputRefs[3]}
@@ -108,10 +109,10 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
         onSubmitEditing={() => inputRefs[4].current?.focus()}
       />
       <CustomInput
-        title="Complement"
+        title={t('complement')}
         errors={complement.errors}
         inputRef={inputRefs[4]}
-        placeholder="ap 101"
+        placeholder={t('complement_placeholder')}
         value={complement.value}
         onChangeText={t => {
           complement.setValue(t)
@@ -122,7 +123,7 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
       />
       <Flex style={{ flex: 1 }} />
       <Button m="1" onPress={onSave} isDisabled={hasSomeError}>
-        Save
+        {t('save')}
       </Button>
     </ScrollView>
   )

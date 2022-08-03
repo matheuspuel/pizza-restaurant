@@ -2,6 +2,7 @@ import { Flex, Text } from 'native-base'
 import { Alert } from 'react-native'
 import { sizes } from 'src/data'
 import { PizzaSizeInfo } from 'src/domain/size'
+import { t } from 'src/i18n'
 import { maybeChangePizzaSize } from 'src/redux/slices/order'
 import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
@@ -33,7 +34,7 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
   return (
     <Flex flex={1} p="2" bg="background" justify="space-evenly">
       <Text textAlign="center" fontSize="lg" bold>
-        Choose the Size
+        {t('choose_size')}
       </Text>
       <Flex direction="row" align="flex-end">
         {sizesRow1.map(s => (

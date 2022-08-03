@@ -1,8 +1,8 @@
 import { createStackNavigator, StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { PizzaSizeId } from 'src/domain/size'
+import { t } from 'src/i18n'
 import { Address } from 'src/views/Address'
-import { Categories } from 'src/views/Categories'
 import { Finished } from 'src/views/Finished'
 import { Flavors } from 'src/views/Flavors'
 import { Home } from 'src/views/Home'
@@ -15,7 +15,6 @@ export type RootStackScreenProps<
 
 export type RootStackParamList = {
   Home: undefined
-  Categories: undefined
   Sizes?: { itemIndex: number }
   Flavors: { sizeId: PizzaSizeId; itemIndex?: number }
   Summary: undefined
@@ -38,14 +37,25 @@ export const RootStackNavigator = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="Categories"
-      component={Categories}
-      options={{ headerShown: false }}
+      name="Sizes"
+      component={Sizes}
+      options={{ title: t('sizes') }}
     />
-    <Stack.Screen name="Sizes" component={Sizes} />
-    <Stack.Screen name="Flavors" component={Flavors} />
-    <Stack.Screen name="Summary" component={Summary} />
-    <Stack.Screen name="Address" component={Address} />
+    <Stack.Screen
+      name="Flavors"
+      component={Flavors}
+      options={{ title: t('Flavors') }}
+    />
+    <Stack.Screen
+      name="Summary"
+      component={Summary}
+      options={{ title: t('summary') }}
+    />
+    <Stack.Screen
+      name="Address"
+      component={Address}
+      options={{ title: t('address') }}
+    />
     <Stack.Screen
       name="Finished"
       component={Finished}

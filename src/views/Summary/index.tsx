@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { Alert } from 'react-native'
 import { flavors as allFlavors, sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
+import { t } from 'src/i18n'
 import { getAuthentication } from 'src/redux/slices/authentication'
 import { getOrder, removePizza, setObservation } from 'src/redux/slices/order'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
@@ -71,7 +72,7 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
       />
       <Flex p="1">
         <Text alignSelf="flex-end" p="1">
-          Total:{' '}
+          {t('total')}:{' '}
           <Text alignSelf="flex-end" p="1" bold>
             {toCurrency(totalPrice)}
           </Text>
@@ -81,18 +82,18 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
             autoCompleteType={undefined}
             value={order.observation}
             onChangeText={t => dispatch(setObservation(t))}
-            placeholder="Observations"
+            placeholder={t('observations')}
             bg="white"
           />
         </Flex>
         <Flex p="1">
-          <Button onPress={() => navigation.navigate('Categories')}>
-            Add Item
+          <Button onPress={() => navigation.navigate('Sizes')}>
+            {t('add_item')}
           </Button>
         </Flex>
         <Flex p="1">
           <Button onPress={onNext}>
-            {authentication.authenticated ? 'Confirm Order' : 'Next'}
+            {authentication.authenticated ? t('confirm_order') : t('next')}
           </Button>
         </Flex>
       </Flex>
@@ -100,7 +101,7 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
         <Actionsheet.Content>
           <Flex w="full" h={60} px="4" justify="center">
             <Text fontSize="md" color="gray.500">
-              Actions
+              {t('actions')}
             </Text>
           </Flex>
           <Actionsheet.Item
@@ -109,7 +110,7 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
               navigation.navigate('Sizes', { itemIndex: selected.index })
             }
           >
-            Change Size
+            {t('change_size')}
           </Actionsheet.Item>
           <Actionsheet.Item
             onPress={() =>
@@ -120,16 +121,16 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
               })
             }
           >
-            Change Flavors
+            {t('change_flavors')}
           </Actionsheet.Item>
           <Actionsheet.Item
             onPress={() =>
               selected && dispatch(removePizza({ itemIndex: selected.index }))
             }
           >
-            Remove Item
+            {t('remove_item')}
           </Actionsheet.Item>
-          <Actionsheet.Item>Cancel</Actionsheet.Item>
+          <Actionsheet.Item>{t('cancel')}</Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
     </Flex>

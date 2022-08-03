@@ -17,6 +17,7 @@ import {
   sortByPrice,
   sortByRecommended,
 } from 'src/domain/flavor'
+import { t } from 'src/i18n'
 import { addPizza, changePizzaFlavors, getOrder } from 'src/redux/slices/order'
 import { useAppDispatch, useAppSelector } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
@@ -95,12 +96,12 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
       <Flex p="2">
         <Input m="2" bg="white" value={search} onChangeText={setSearch} />
         <Button m="2" onPress={modal.onOpen}>
-          Sort by
+          {t('sort_by')}
         </Button>
         <Flex my="2" direction="row" justify="space-evenly">
           {filterOptions.map(op => (
             <Button key={op} onPress={() => setFilterBy(op)}>
-              {op}
+              {t(op)}
             </Button>
           ))}
         </Flex>
@@ -136,14 +137,14 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
           ))}
         </Flex>
         <Button m="1" onPress={onNext}>
-          Next
+          {t('next')}
         </Button>
       </Flex>
       <Actionsheet isOpen={modal.isOpen} onClose={modal.onClose}>
         <Actionsheet.Content>
           <Flex w="full" h={60} px={4} justify="center">
             <Text fontSize="md" color="gray.500">
-              Sort by
+              {t('sort_by')}
             </Text>
           </Flex>
           {sortOptions.map((o, i) => (
@@ -154,10 +155,10 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
                 if (type !== undefined) setSortBy(type)
               }}
             >
-              {o}
+              {t(o)}
             </Actionsheet.Item>
           ))}
-          <Actionsheet.Item>Cancel</Actionsheet.Item>
+          <Actionsheet.Item>{t('cancel')}</Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
     </>

@@ -1,5 +1,6 @@
 import { Button, Flex, Image, Text } from 'native-base'
 import scooterDeliveryImage from 'src/assets/images/scooter-delivery.png'
+import { t } from 'src/i18n'
 import { clearOrder } from 'src/redux/slices/order'
 import { useAppDispatch } from 'src/redux/store'
 import { RootStackScreenProps } from 'src/routes/RootStack'
@@ -17,25 +18,25 @@ export const Finished = (props: RootStackScreenProps<'Finished'>) => {
     <Flex flex={1}>
       <Flex flex={1} />
       <Text textAlign="center" fontSize="3xl" bold>
-        Order Received
+        {t('order_received')}
       </Text>
       <Flex flex={1} />
       <Image
-        alt="Delivery"
+        alt={t('delivery')}
         w={250}
         h={250}
         alignSelf="center"
         source={scooterDeliveryImage}
       />
       <Text textAlign="center" fontSize="2xl">
-        Estimated delivery time:
+        {t('estimated_delivery_time')}:
       </Text>
       <Text textAlign="center" fontSize="2xl">
-        45 minutes
+        45 {t('minutes')}
       </Text>
       <Flex flex={1} />
       <Button p="4" onPress={onNext}>
-        OK
+        {t('ok')}
       </Button>
     </Flex>
   )
