@@ -46,4 +46,6 @@ export const en = {
   estimated_delivery_time: 'Estimated Delivery Time',
   minutes: 'minutes',
   ok: 'OK',
+  Language: 'Language',
+  Device_Language: 'Device Language',
 } as const

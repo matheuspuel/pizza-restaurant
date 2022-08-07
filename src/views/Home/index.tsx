@@ -1,19 +1,27 @@
+import { MaterialIcons } from '@expo/vector-icons'
 import * as SplashScreen from 'expo-splash-screen'
+import I18n from 'i18n-js'
 import {
   Button,
+  Divider,
   Flex,
   Heading,
+  Icon,
   IconButton,
   Image,
   Link,
+  Menu,
   MoonIcon,
+  Pressable,
   SunIcon,
   Text,
   useColorMode,
 } from 'native-base'
+import enFlag from 'src/assets/images/flags/en.png'
+import ptFlag from 'src/assets/images/flags/pt-BR.png'
 import headerLogo from 'src/assets/images/header-logo.png'
 import { restaurantName } from 'src/data'
-import { t } from 'src/i18n'
+import { changeLocale, t } from 'src/i18n'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import {
   appVersionName,
@@ -28,6 +36,55 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
   return (
     <Flex flex={1} safeArea onLayout={SplashScreen.hideAsync}>
       <Flex direction="row" justify="flex-end">
+        <Menu
+          trigger={triggerProps => (
+            <Pressable
+              {...triggerProps}
+              rounded="sm"
+              _pressed={{
+                _light: { bg: 'gray.300' },
+                _dark: { bg: 'gray.700' },
+              }}
+            >
+              <Image
+                m="2"
+                size="8"
+                rounded="full"
+                alt="en"
+                source={I18n.locale.startsWith('pt') ? ptFlag : enFlag}
+              />
+            </Pressable>
+          )}
+        >
+          <Menu.Group title={t('Language')}>
+            <Divider w="100%" />
+            <Menu.Item
+              flexDirection="row"
+              alignItems="center"
+              onPress={() => changeLocale(null)}
+            >
+              <Icon size="8" as={<MaterialIcons name="settings" />} />
+              <Text pl="2">{t('Device_Language')}</Text>
+            </Menu.Item>
+            <Divider w="100%" />
+            <Menu.Item
+              flexDirection="row"
+              alignItems="center"
+              onPress={() => changeLocale('en')}
+            >
+              <Image size="8" rounded="full" alt="en" source={enFlag} />
+              <Text pl="2">English</Text>
+            </Menu.Item>
+            <Menu.Item
+              flexDirection="row"
+              alignItems="center"
+              onPress={() => changeLocale('pt-BR')}
+            >
+              <Image size="8" rounded="full" alt="pt" source={ptFlag} />
+              <Text pl="2">Português</Text>
+            </Menu.Item>
+          </Menu.Group>
+        </Menu>
         <IconButton
           icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
           colorScheme={colorMode === 'dark' ? 'yellow' : 'darkBlue'}

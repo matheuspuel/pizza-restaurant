@@ -48,4 +48,6 @@ export const pt: Translation = {
   estimated_delivery_time: 'Tempo Estimado de Entrega',
   minutes: 'minutos',
   ok: 'OK',
+  Language: 'Idioma',
+  Device_Language: 'Idioma do Dispositivo',
 }
