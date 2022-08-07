@@ -19,9 +19,10 @@ export const FlavorItem = (props: {
     <Pressable
       m="1"
       p="2"
-      borderWidth="1"
-      rounded="md"
-      bg={tags?.sweet ? '#bc9c87' : 'yellow.100'}
+      rounded="lg"
+      _light={{ bg: 'white' }}
+      _dark={{ bg: 'gray.800' }}
+      shadow="2"
       onPress={props.onPress}
     >
       <Flex direction="row" align="center">

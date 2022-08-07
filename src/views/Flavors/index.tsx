@@ -2,6 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import {
   Actionsheet,
   Button,
+  Divider,
   Flex,
   Icon,
   IconButton,
@@ -96,11 +97,10 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
 
   return (
     <>
-      <Flex p="2">
+      <Flex p="2" _light={{ bg: 'white' }} _dark={{ bg: 'black' }} shadow="2">
         <Flex direction="row">
           <Input
             flex={1}
-            m="2"
             _light={{ bg: 'white' }}
             value={search}
             onChangeText={setSearch}
@@ -109,13 +109,13 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
             }
           />
           <IconButton
-            m="2"
+            ml="2"
             variant="outline"
             onPress={modal.onOpen}
             icon={<Icon as={<MaterialIcons name="sort" />} />}
           />
         </Flex>
-        <Flex my="2" direction="row" justify="space-evenly">
+        <Flex mt="2" direction="row" justify="space-between">
           {filterOptions.map(op => (
             <Button
               key={op}
@@ -146,7 +146,14 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
           />
         ))}
       </ScrollView>
-      <Flex direction="row" align="center" p="1">
+      <Divider />
+      <Flex
+        direction="row"
+        align="center"
+        p="1"
+        _light={{ bg: 'white' }}
+        _dark={{ bg: 'black' }}
+      >
         <Text p="1" bold fontSize="lg">
           {selectedIds.length} / {maxFlavors}
         </Text>

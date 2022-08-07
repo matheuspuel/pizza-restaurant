@@ -123,7 +123,7 @@ export const flavors: Record<string, Flavor> = {
   10: {
     id: 10,
     name: 'Banana',
-    description: 'Banana, condensed milk',
+    description: 'Banana, leite condensado',
     prices: { sm: 29.9, md: 44.9, lg: 59.9, xl: 74.9, xxl: 89.9 },
     popularity: 60,
     tags: { sweet: true, recommended: true },
