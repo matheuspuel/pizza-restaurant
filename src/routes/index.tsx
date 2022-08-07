@@ -1,17 +1,30 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
+import { StatusBar, useColorModeValue, useTheme } from 'native-base'
 import React from 'react'
 import { RootStackNavigator } from './RootStack'
 
-let navigationTheme = DefaultTheme
-// navigationTheme.colors.card = theme.colors.primary[500]
-// navigationTheme.colors.text = theme.colors.lightText
-// navigationTheme.colors.primary = theme.colors.primary[900]
-// navigationTheme.colors.background = theme.colors.background
+const Navigator = () => {
+  const theme = useTheme()
 
-const Navigator = () => (
-  <NavigationContainer theme={navigationTheme}>
-    <RootStackNavigator />
-  </NavigationContainer>
-)
+  let navigationTheme = DefaultTheme
+  navigationTheme.colors.card = useColorModeValue('#ffffff', '#000000')
+  navigationTheme.colors.text = useColorModeValue(
+    theme.colors.darkText,
+    theme.colors.lightText
+  )
+  navigationTheme.colors.background = useColorModeValue(
+    theme.colors.lightBackground,
+    theme.colors.darkBackground
+  )
+  // navigationTheme.colors.primary = theme.colors.primary[900]
 
+  return (
+    <>
+      <StatusBar />
+      <NavigationContainer theme={navigationTheme}>
+        <RootStackNavigator />
+      </NavigationContainer>
+    </>
+  )
+}
 export default Navigator

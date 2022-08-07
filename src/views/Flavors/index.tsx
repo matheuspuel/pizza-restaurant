@@ -1,7 +1,10 @@
+import { MaterialIcons } from '@expo/vector-icons'
 import {
   Actionsheet,
   Button,
   Flex,
+  Icon,
+  IconButton,
   Input,
   ScrollView,
   Text,
@@ -94,13 +97,31 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
   return (
     <>
       <Flex p="2">
-        <Input m="2" bg="white" value={search} onChangeText={setSearch} />
-        <Button m="2" onPress={modal.onOpen}>
-          {t('sort_by')}
-        </Button>
+        <Flex direction="row">
+          <Input
+            flex={1}
+            m="2"
+            _light={{ bg: 'white' }}
+            value={search}
+            onChangeText={setSearch}
+            InputRightElement={
+              <Icon mr="2" size="xl" as={<MaterialIcons name="search" />} />
+            }
+          />
+          <IconButton
+            m="2"
+            variant="outline"
+            onPress={modal.onOpen}
+            icon={<Icon as={<MaterialIcons name="sort" />} />}
+          />
+        </Flex>
         <Flex my="2" direction="row" justify="space-evenly">
           {filterOptions.map(op => (
-            <Button key={op} onPress={() => setFilterBy(op)}>
+            <Button
+              key={op}
+              variant={filterBy === op ? 'subtle' : 'solid'}
+              onPress={() => setFilterBy(op)}
+            >
               {t(op)}
             </Button>
           ))}

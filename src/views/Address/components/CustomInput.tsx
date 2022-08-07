@@ -16,7 +16,7 @@ export const CustomInput = ({
     <FormControl p="2" isRequired={required} isInvalid={!!errors.length}>
       <FormControl.Label>{title}</FormControl.Label>
       <Input
-        bg="white"
+        _light={{ bg: 'white' }}
         returnKeyType="next"
         blurOnSubmit={false}
         ref={inputRef}

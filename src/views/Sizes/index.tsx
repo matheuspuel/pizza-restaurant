@@ -32,19 +32,34 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
   }
 
   return (
-    <Flex flex={1} p="2" bg="background" justify="space-evenly">
-      <Text textAlign="center" fontSize="lg" bold>
-        {t('choose_size')}
-      </Text>
-      <Flex direction="row" align="flex-end">
-        {sizesRow1.map(s => (
-          <SizeItem key={s.id} data={s} onPress={() => onPress(s)} />
-        ))}
+    <Flex flex={1} p="2" bg="background">
+      <Flex
+        m="2"
+        p="2"
+        rounded="full"
+        bg={{
+          linearGradient: {
+            colors: ['primary.700', 'yellow.600'],
+            start: [0, 1],
+            end: [1, 0],
+          },
+        }}
+      >
+        <Text textAlign="center" fontSize="lg" bold color="white">
+          {t('choose_size')}
+        </Text>
       </Flex>
-      <Flex direction="row" align="flex-end">
-        {sizesRow2.map(s => (
-          <SizeItem key={s.id} data={s} onPress={() => onPress(s)} />
-        ))}
+      <Flex flex={1} justify="space-evenly">
+        <Flex direction="row" align="flex-end">
+          {sizesRow1.map(s => (
+            <SizeItem key={s.id} data={s} onPress={() => onPress(s)} />
+          ))}
+        </Flex>
+        <Flex direction="row" align="flex-end">
+          {sizesRow2.map(s => (
+            <SizeItem key={s.id} data={s} onPress={() => onPress(s)} />
+          ))}
+        </Flex>
       </Flex>
     </Flex>
   )

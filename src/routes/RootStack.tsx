@@ -39,7 +39,7 @@ export const RootStackNavigator = () => (
     <Stack.Screen
       name="Sizes"
       component={Sizes}
-      options={{ title: t('sizes') }}
+      options={{ headerShown: false }}
     />
     <Stack.Screen
       name="Flavors"

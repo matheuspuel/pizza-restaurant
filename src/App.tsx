@@ -1,13 +1,17 @@
+import { LinearGradient } from 'expo-linear-gradient'
 import { NativeBaseProvider } from 'native-base'
 import { Provider } from 'react-redux'
 import { Loading } from './Loading'
 import store from './redux/store'
-import { lightTheme } from './theme/light'
+import { theme } from './theme/theme'
 
 export default function App() {
   return (
     <Provider store={store}>
-      <NativeBaseProvider theme={lightTheme}>
+      <NativeBaseProvider
+        theme={theme}
+        config={{ dependencies: { 'linear-gradient': LinearGradient } }}
+      >
         <Loading />
       </NativeBaseProvider>
     </Provider>

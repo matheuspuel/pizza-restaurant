@@ -83,7 +83,7 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
             value={order.observation}
             onChangeText={t => dispatch(setObservation(t))}
             placeholder={t('observations')}
-            bg="white"
+            _light={{ bg: 'white' }}
           />
         </Flex>
         <Flex p="1">

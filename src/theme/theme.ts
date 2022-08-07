@@ -1,6 +1,7 @@
 import { extendTheme } from 'native-base'
 
-export const lightTheme = extendTheme({
+export const theme = extendTheme({
+  config: { useSystemColorMode: true },
   colors: {
     primary: {
       50: '#FDE7E3',
@@ -14,10 +15,11 @@ export const lightTheme = extendTheme({
       800: '#8A200A',
       900: '#451005',
     },
-    lightText: '#FFFFFF',
+    lightText: '#E7E7E7',
     darkText: '#1E1E1E',
     grayText: '#606060',
-    background: '#F2F2F2',
+    darkBackground: '#0D0D0D',
+    lightBackground: '#F2F2F2',
   },
   fontConfig: {
     Tommy: {
@@ -38,12 +40,22 @@ export const lightTheme = extendTheme({
     mono: 'Tommy' as any,
   },
   components: {
-    Text: { baseStyle: { _light: { color: 'darkText' } } },
-    Heading: { baseStyle: { _light: { color: 'darkText' } } },
+    Text: {
+      baseStyle: {
+        _light: { color: 'darkText' },
+        _dark: { color: 'lightText' },
+      },
+    },
+    Heading: {
+      baseStyle: {
+        _light: { color: 'darkText' },
+        _dark: { color: 'lightText' },
+      },
+    },
   },
 })
 
-type CustomTheme = typeof lightTheme
+type CustomTheme = typeof theme
 
 declare module 'native-base' {
   interface ICustomTheme extends CustomTheme {}

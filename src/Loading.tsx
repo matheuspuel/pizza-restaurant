@@ -1,6 +1,5 @@
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
-import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import Router from './routes'
 
@@ -21,10 +20,5 @@ export const Loading = () => {
     return null
   }
 
-  return (
-    <>
-      <StatusBar style="auto" />
-      <Router />
-    </>
-  )
+  return <Router />
 }
