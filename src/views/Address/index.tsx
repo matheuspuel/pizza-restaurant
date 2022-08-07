@@ -62,7 +62,9 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
           phone.clearErrors()
         }}
         onBlur={phone.updateErrors}
-        onSubmitEditing={() => inputRefs[1].current?.focus()}
+        onSubmitEditing={() => {
+          if (phone.updateErrors().length === 0) inputRefs[1].current?.focus()
+        }}
         autoFocus
         keyboardType="numeric"
       />
@@ -78,7 +80,9 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
           city.clearErrors()
         }}
         onBlur={city.updateErrors}
-        onSubmitEditing={() => inputRefs[2].current?.focus()}
+        onSubmitEditing={() => {
+          if (city.updateErrors().length === 0) inputRefs[2].current?.focus()
+        }}
       />
       <CustomInput
         title={t('street')}
@@ -92,7 +96,9 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
           street.clearErrors()
         }}
         onBlur={street.updateErrors}
-        onSubmitEditing={() => inputRefs[3].current?.focus()}
+        onSubmitEditing={() => {
+          if (street.updateErrors().length === 0) inputRefs[3].current?.focus()
+        }}
       />
       <CustomInput
         title={t('number')}
@@ -106,7 +112,9 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
           number.clearErrors()
         }}
         onBlur={number.updateErrors}
-        onSubmitEditing={() => inputRefs[4].current?.focus()}
+        onSubmitEditing={() => {
+          if (number.updateErrors().length === 0) inputRefs[4].current?.focus()
+        }}
       />
       <CustomInput
         title={t('complement')}
@@ -119,7 +127,9 @@ export const Address = (props: RootStackScreenProps<'Address'>) => {
           complement.clearErrors()
         }}
         onBlur={complement.updateErrors}
-        onSubmitEditing={onSave}
+        onSubmitEditing={() => {
+          if (complement.updateErrors().length === 0) onSave()
+        }}
       />
       <Flex style={{ flex: 1 }} />
       <Button m="1" onPress={onSave} isDisabled={hasSomeError}>
