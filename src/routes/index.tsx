@@ -1,5 +1,6 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
-import { StatusBar, useColorModeValue, useTheme } from 'native-base'
+import { StatusBar } from 'expo-status-bar'
+import { useColorModeValue, useTheme } from 'native-base'
 import React from 'react'
 import { RootStackNavigator } from './RootStack'
 

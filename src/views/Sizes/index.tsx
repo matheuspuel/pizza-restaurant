@@ -32,7 +32,7 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
   }
 
   return (
-    <Flex flex={1} p="2" bg="background">
+    <Flex safeArea flex={1} p="2" bg="background">
       <Flex
         m="2"
         p="2"

@@ -1,5 +1,4 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import * as SplashScreen from 'expo-splash-screen'
 import I18n from 'i18n-js'
 import {
   Button,
@@ -34,7 +33,7 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Flex flex={1} safeArea onLayout={SplashScreen.hideAsync}>
+    <Flex flex={1} safeArea>
       <Flex direction="row" justify="flex-end">
         <Menu
           trigger={triggerProps => (
@@ -47,6 +46,7 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
               }}
             >
               <Image
+                fadeDuration={0}
                 m="2"
                 size="8"
                 rounded="full"
@@ -72,7 +72,13 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
               alignItems="center"
               onPress={() => changeLocale('en')}
             >
-              <Image size="8" rounded="full" alt="en" source={enFlag} />
+              <Image
+                fadeDuration={0}
+                size="8"
+                rounded="full"
+                alt="en"
+                source={enFlag}
+              />
               <Text pl="2">English</Text>
             </Menu.Item>
             <Menu.Item
@@ -80,7 +86,13 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
               alignItems="center"
               onPress={() => changeLocale('pt-BR')}
             >
-              <Image size="8" rounded="full" alt="pt" source={ptFlag} />
+              <Image
+                fadeDuration={0}
+                size="8"
+                rounded="full"
+                alt="pt"
+                source={ptFlag}
+              />
               <Text pl="2">Português</Text>
             </Menu.Item>
           </Menu.Group>
@@ -93,8 +105,16 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
         />
       </Flex>
       <Flex flex={1} />
-      <Flex h="100px" w="full" p="2">
+      <Flex
+        alignSelf="center"
+        h="150px"
+        w="150px"
+        p="2"
+        bg="primary.900"
+        rounded="xl"
+      >
         <Image
+          fadeDuration={0}
           h="full"
           w="full"
           resizeMode="contain"
@@ -102,7 +122,7 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
           source={headerLogo}
         />
       </Flex>
-      <Text alignSelf="center" p="2" fontSize="2xl" color="primary.600" bold>
+      <Text alignSelf="center" p="2" fontSize="2xl" color="primary.800" bold>
         {restaurantName}
       </Text>
       <Flex flex={1} />
