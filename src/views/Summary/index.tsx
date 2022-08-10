@@ -105,32 +105,37 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
             </Text>
           </Flex>
           <Actionsheet.Item
-            onPress={() =>
+            onPress={() => {
+              modal.onClose()
               selected &&
-              navigation.navigate('Sizes', { itemIndex: selected.index })
-            }
+                navigation.navigate('Sizes', { itemIndex: selected.index })
+            }}
           >
             {t('change_size')}
           </Actionsheet.Item>
           <Actionsheet.Item
-            onPress={() =>
+            onPress={() => {
+              modal.onClose()
               selected &&
-              navigation.navigate('Flavors', {
-                itemIndex: selected.index,
-                sizeId: selected.item.size.id,
-              })
-            }
+                navigation.navigate('Flavors', {
+                  itemIndex: selected.index,
+                  sizeId: selected.item.size.id,
+                })
+            }}
           >
             {t('change_flavors')}
           </Actionsheet.Item>
           <Actionsheet.Item
-            onPress={() =>
+            onPress={() => {
+              modal.onClose()
               selected && dispatch(removePizza({ itemIndex: selected.index }))
-            }
+            }}
           >
             {t('remove_item')}
           </Actionsheet.Item>
-          <Actionsheet.Item>{t('cancel')}</Actionsheet.Item>
+          <Actionsheet.Item onPress={modal.onClose}>
+            {t('cancel')}
+          </Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
     </Flex>
