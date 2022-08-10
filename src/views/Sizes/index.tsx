@@ -26,7 +26,7 @@ export const Sizes = (props: RootStackScreenProps<'Sizes'>) => {
       if (res.valid) {
         navigation.navigate('Summary')
       } else {
-        Alert.alert('Error', res.error)
+        Alert.alert(t('Error'), res.error)
       }
     }
   }

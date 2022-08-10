@@ -50,4 +50,8 @@ export const pt: Translation = {
   ok: 'OK',
   Language: 'Idioma',
   Device_Language: 'Idioma do Dispositivo',
+  Select_one_flavor: 'Selecione ao menos um sabor',
+  Add_one_item: 'Adicione ao menos um item',
+  Too_many_flavors_for_size: 'Há sabores demais para este tamanho de pizza',
+  Error: 'Erro',
 }

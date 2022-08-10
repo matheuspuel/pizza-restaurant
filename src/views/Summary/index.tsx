@@ -46,7 +46,7 @@ export const Summary = (props: RootStackScreenProps<'Summary'>) => {
 
   const onNext = () => {
     if (pizzas.length <= 0) {
-      Alert.alert('Error', 'Add at least one item')
+      Alert.alert(t('Error'), t('Add_one_item'))
     } else if (!authentication.authenticated) {
       navigation.navigate('Address')
     } else {

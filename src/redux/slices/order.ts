@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { sizes } from 'src/data'
 import { Flavor } from 'src/domain/flavor'
 import { PizzaSizeId } from 'src/domain/size'
+import { t } from 'src/i18n'
 import { AppDispatch, RootState } from '../store'
 
 export type Order = {
@@ -102,7 +103,7 @@ export const maybeChangePizzaSize =
     const flavorsCount = item?.flavorIds.length ?? 0
     const size = sizes[args.sizeId]
     if (flavorsCount > size.maxFlavors) {
-      return { valid: false, error: 'Too many flavors for this pizza size' }
+      return { valid: false, error: t('Too_many_flavors_for_size') }
     } else {
       dispatch(changePizzaSize(args))
       return { valid: true }

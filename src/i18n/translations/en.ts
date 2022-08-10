@@ -48,4 +48,8 @@ export const en = {
   ok: 'OK',
   Language: 'Language',
   Device_Language: 'Device Language',
+  Select_one_flavor: 'Select at least one flavor',
+  Add_one_item: 'Add at least one item',
+  Too_many_flavors_for_size: 'Too many flavors for this pizza size',
+  Error: 'Error',
 } as const
