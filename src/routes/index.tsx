@@ -1,5 +1,4 @@
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
 import { useColorModeValue, useTheme } from 'native-base'
 import React from 'react'
 import { RootStackNavigator } from './RootStack'
@@ -20,12 +19,9 @@ const Navigator = () => {
   // navigationTheme.colors.primary = theme.colors.primary[900]
 
   return (
-    <>
-      <StatusBar />
-      <NavigationContainer theme={navigationTheme}>
-        <RootStackNavigator />
-      </NavigationContainer>
-    </>
+    <NavigationContainer theme={navigationTheme}>
+      <RootStackNavigator />
+    </NavigationContainer>
   )
 }
 export default Navigator

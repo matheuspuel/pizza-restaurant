@@ -1,7 +1,7 @@
 import Constants from 'expo-constants'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
-import { StatusBar } from 'expo-status-bar'
+import { StatusBar } from 'native-base'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Animated, StyleSheet } from 'react-native'
 import splashImage from 'src/../assets/splash.png'
@@ -37,7 +37,7 @@ export const Loading = () => {
   }, [ready])
 
   if (!ready) {
-    return <StatusBar />
+    return <StatusBar barStyle={'light-content'} />
   }
 
   return (
