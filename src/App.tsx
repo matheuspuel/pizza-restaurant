@@ -1,11 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient'
+import * as NavigationBar from 'expo-navigation-bar'
+import { setStatusBarStyle, StatusBar } from 'expo-status-bar'
 import * as SystemUI from 'expo-system-ui'
-import {
-  NativeBaseProvider,
-  StatusBar,
-  useColorMode,
-  useColorModeValue,
-} from 'native-base'
+import { NativeBaseProvider, useColorMode, useTheme } from 'native-base'
 import { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { Loading } from './Loading'
@@ -27,11 +24,17 @@ export default function App() {
 
 const AppContent = () => {
   const { colorMode } = useColorMode()
+  const { colors } = useTheme()
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync(
-      colorMode === 'dark' ? '#000000' : '#ffffff'
+      colorMode === 'dark' ? colors.darkBackground : colors.lightBackground
     )
+    NavigationBar.setBackgroundColorAsync(
+      colorMode === 'dark' ? colors.darkBackground : colors.lightBackground
+    )
+    // NavigationBar.setButtonStyleAsync(colorMode === 'dark' ? 'light' : 'dark')
+    setStatusBarStyle(colorMode === 'dark' ? 'light' : 'dark')
   }, [colorMode])
 
   return (
@@ -39,7 +42,8 @@ const AppContent = () => {
       <StatusBar
         translucent={true}
         backgroundColor="#00000000"
-        barStyle={useColorModeValue('dark-content', 'light-content')}
+        // style={colorMode === 'dark' ? 'light' : 'dark'}
+        // barStyle={colorMode === 'dark' ? 'light-content' : 'dark-content'}
       />
       <Loading />
     </>
