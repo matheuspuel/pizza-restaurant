@@ -179,6 +179,7 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
             <Actionsheet.Item
               key={o}
               onPress={() => {
+                modal.onClose()
                 const type = sortOptions[i ?? -1]
                 if (type !== undefined) setSortBy(type)
               }}
@@ -186,7 +187,9 @@ export const Flavors = (props: RootStackScreenProps<'Flavors'>) => {
               {t(o)}
             </Actionsheet.Item>
           ))}
-          <Actionsheet.Item>{t('cancel')}</Actionsheet.Item>
+          <Actionsheet.Item onPress={modal.onClose}>
+            {t('cancel')}
+          </Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
     </>
