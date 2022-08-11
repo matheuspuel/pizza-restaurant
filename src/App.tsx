@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import * as NavigationBar from 'expo-navigation-bar'
-import { setStatusBarStyle, StatusBar } from 'expo-status-bar'
+import { StatusBar } from 'expo-status-bar'
 import * as SystemUI from 'expo-system-ui'
 import { NativeBaseProvider, useColorMode, useTheme } from 'native-base'
 import { useEffect } from 'react'
@@ -33,8 +33,7 @@ const AppContent = () => {
     NavigationBar.setBackgroundColorAsync(
       colorMode === 'dark' ? colors.darkBackground : colors.lightBackground
     )
-    // NavigationBar.setButtonStyleAsync(colorMode === 'dark' ? 'light' : 'dark')
-    setStatusBarStyle(colorMode === 'dark' ? 'light' : 'dark')
+    NavigationBar.setButtonStyleAsync(colorMode === 'dark' ? 'light' : 'dark')
   }, [colorMode])
 
   return (
@@ -42,8 +41,7 @@ const AppContent = () => {
       <StatusBar
         translucent={true}
         backgroundColor="#00000000"
-        // style={colorMode === 'dark' ? 'light' : 'dark'}
-        // barStyle={colorMode === 'dark' ? 'light-content' : 'dark-content'}
+        style={colorMode === 'dark' ? 'light' : 'dark'}
       />
       <Loading />
     </>
