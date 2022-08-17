@@ -1,5 +1,4 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import I18n from 'i18n-js'
 import {
   Button,
   Divider,
@@ -20,7 +19,7 @@ import enFlag from 'src/assets/images/flags/en.png'
 import ptFlag from 'src/assets/images/flags/pt-BR.png'
 import headerLogo from 'src/assets/images/header-logo.png'
 import { restaurantName } from 'src/data'
-import { changeLocale, t } from 'src/i18n'
+import { changeLocale, i18n, t } from 'src/i18n'
 import { RootStackScreenProps } from 'src/routes/RootStack'
 import {
   appVersionName,
@@ -51,7 +50,7 @@ export const Home = (props: RootStackScreenProps<'Home'>) => {
                 size="8"
                 rounded="full"
                 alt="en"
-                source={I18n.locale.startsWith('pt') ? ptFlag : enFlag}
+                source={i18n.locale.startsWith('pt') ? ptFlag : enFlag}
               />
             </Pressable>
           )}
